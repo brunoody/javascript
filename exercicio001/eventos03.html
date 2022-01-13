@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Somando valores</title>
+    <style>
+        body {
+            font: normal 18pt arial;            
+        }
+
+        input {
+            font: normal 18pt arial;           
+            width: 100px;
+        }
+
+        div#resultado {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Somando Valores</h1>
+    <input type="number" name="numero1" id="numero1">
+    <input type="number" name="numero2" id="numero2">    
+    <input type="button" value="Somar" onclick="somar()"> 
+    <div id="resultado">Resultado</div>
+    
+    <script>
+        function somar() {
+            // duas formas de obter o objeto, id, nome e querySelector
+
+
+            //Pelo nome não estava funcionando, coloquei pelo ID abaixo e foi..
+            //var objnumero1 = window.document.getElementsByName('numero1')
+
+            var objnumero1 = window.document.getElementById('numero1')
+            var objnumero2 = window.document.querySelector('input#numero2')            
+            var objresultado =  window.document.getElementById('resultado')
+
+            // pode ser feito dessas duas formas tb, com e sem o parse
+            var valor1 = Number(objnumero1.value)
+            var valor2 = Number(objnumero2.value)
+            var soma = valor1 + valor2
+
+            // pode ser innerHTML ou Text
+            objresultado.innerHTML = `A soma entre ${valor1} e ${valor2} é <strong>${soma}</strong>`  
+        }
+    </script>
+</body>
+</html>
