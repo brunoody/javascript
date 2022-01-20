@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div#div1 {
+            font-family: Arial, Helvetica, sans-serif;
+            background: green;
+            color: white;
+            height: 200px;
+            width: 200px;
+            line-height: 200px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="div1">
+    </div> 
+
+    <script>
+        var vhoje = new Date()
+        var vdiasemana = vhoje.getDay() // Tem que colocar essas porrinhas de parenteses vazios, isso estava me geranado erro.. lixo.
+        var vdiv1 = document.getElementById('div1')
+
+        switch(vdiasemana) {
+            case 0:
+                vdiv1.innerHTML = 'Domingo'
+                break // obrigatório colocar break senão passa pelos outros (que lixo)
+            case 1:
+                vdiv1.innerHTML = 'Segunda'
+                break
+            case 2:
+                vdiv1.innerHTML = 'Terça'
+                break
+            case 3:
+                vdiv1.innerHTML = 'Quarta'
+                break
+            case 4:
+                vdiv1.innerHTML = 'Quinta'
+                break
+            case 5:
+                vdiv1.innerHTML = 'Sexta'
+                break
+            case 6:
+                vdiv1.innerHTML = 'Sábado'
+                break
+            default: 
+                vdiv1.innerHTML = 'Dia errado';
+                break
+        }
+    </script>
+</body>
+</html>
