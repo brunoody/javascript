@@ -18,7 +18,20 @@ let texto6 = "texto \\simples"; // Assim mostra somente uma barra
 let texto7 = 'texto simples';
 // texto7[0] é a letra t 
 
+// NUMEROS:
+let num1 = 0.7;
+let num2 = 0.1;
 
+num1 += num2; // 0,8
+num1 += num2; // 0,9
+num1 += num2; // 1,0 - Só que aqui mostra 0.99999999 no console, imprecisão
+// então fazemos assim:
+//num1 = num1.toFixed(2); // Arredondamento, ele mostra 1.0 no console mas a função Number.IsInteger diz que é falso!
+console.log(num1);
+console.log(Number.isInteger(num1));
+// então se faz assim (uma das maneiras):
+num1 = Number(num1.toFixed(2));
+console.log(num1);
+console.log(Number.isInteger(num1));
 
-
-console.log('teste')
+// No Objeto Math tb tem inumeras rotinas com numeros.
