@@ -2,5 +2,4 @@
 && EQUIVALE AO "AND" 
 || (PIPE PIPE, EQUIVALE AO "OR")
 ! EQUIVALE AO "NOT"
-
 */
