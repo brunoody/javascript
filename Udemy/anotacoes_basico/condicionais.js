@@ -11,5 +11,5 @@ if ((hora >= 0) && (hora <= 11)) {
 } else if ((hora >= 12) && (hora <= 17))  {
     console.log('Boa tarde')    
 } else {
-    console.log('Boa noite'); //5RYRTYHRY
+    console.log('Boa noite');
 }
