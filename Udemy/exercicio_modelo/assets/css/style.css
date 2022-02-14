@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Sriracha&display=swap');
+
 :root {
    --primary-color :  rgb(104, 146, 165);
+   --primary-color-dark :  rgb(26, 85, 112);
 }
 
 * {
@@ -10,12 +13,46 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: var(--primary-color);
+    background-color: var(--primary-color); 
+    font-family: 'Open sans', 'sans-serif';
+    font-size: 1.3em;
+    line-height: 1.5em;
 }
 
 .container {
     max-width: 640px;
     margin: 50px auto;
-    background-color: rgb(148, 123, 172);
-    padding: 20px;
+    background-color: white;
+    padding: 20px; 
+    border-radius: 10px;       
+}
+
+form input, form label, form button {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+form input, form button {
+    font-size: 20px;
+    height: 50px;
+    padding: 0, 20px;
+}
+
+form button {
+    background-color: var(--primary-color);
+    border: none;
+    margin-top: 30px;
+}
+
+form input:focus {
+    outline: 1px solid green;
+}
+
+form button:hover {    
+    background-color: var(--primary-color-dark);     
+}
+
+form button:active {
+    background-color: blue;     
 }
