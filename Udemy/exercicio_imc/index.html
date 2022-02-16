@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cálculo do IMC</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/resultados.css">
 </head>
 
 <body>
@@ -17,11 +18,11 @@
             ullam, magni laboriosam repellendus ratione rem quidem possimus esse atque neque reiciendis perferendis
             tempora quis quasi.
         </p>
-        <form class="form_calculo">
-            <label for="input-peso">Peso</label>
-            <input type="number" id="input-peso">
+        <form id="form_calculo">
+            <label for="input-peso">Peso</label>            
+            <input type="text" id="input-peso">          
             <label for="input-altura">Altura</label>
-            <input type="number" id="input-altura">
+            <input type="text" id="input-altura">
             <button>Calcular</button>
             <div id="resultado"></div>
         </form>
