@@ -1,27 +1,38 @@
+
+
+.classe_base {
+    color: white;    
+    height: 50px;
+    padding: 10px 10px 10px 10px;
+    border-radius: 10px;    
+}
+
 .dados_invalidos {
-    background-color: aqua;
+    background-color: red;
 }
 
 .abaixo_peso {
-    background-color: aqua;
-}
+    background-color: blue;
+}    
 
 .peso_normal {
-    background-color: aqua;
+    background-color: green;
 }
 
 .sobrepeso {
-    background-color: aqua;
+    background-color: yellow;
+    color: black;    
 }
 
 .obesidade_1 {
-    background-color: aqua;
+    background-color: chartreuse;
+    color: black;    
 }
 
 .obesidade_2 {
-    background-color: aqua;
+    background-color: orange;
 }
 
 .obesidade_3 {
-    background-color: aqua;
+    background-color: darkorchid;
 }

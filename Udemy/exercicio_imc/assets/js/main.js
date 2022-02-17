@@ -10,10 +10,10 @@ function calcularIMC (evento) {
     let valor_peso = Number.parseFloat(peso.value.replace(',','.'));
     let valor_altura = Number.parseFloat(altura.value.replace(',','.'));
 
-    if ((isNaN(valor_peso)) || (valor_peso === 0)) {
+    if (!valor_peso) { // o ! é um not, e valores ou variaves de valores retornam um "boolean" em JS 
         mensagem_usuario = 'Digite um peso válido';
         classe_mensagem_usuario = 'dados_invalidos';
-    } else if ((valor_altura === undefined) || (isNaN(valor_altura)) || (valor_altura === 0)) {
+    } else if (!valor_altura) {
         mensagem_usuario = 'Digite uma altura válida';
         classe_mensagem_usuario = 'dados_invalidos';
     } else {
@@ -46,9 +46,16 @@ function calcularIMC (evento) {
 };
 
 function mostrarResultado(mensagem, classe) {
-    let resultado = window.document.querySelector('#resultado');    
-    resultado.innerHTML = mensagem;
+    const resultado = window.document.querySelector('#resultado');    
+    resultado.innerHTML = ''; // Tem ue limpar pois o create aqui de baixo vai duplicar os paragrafos
+    
+    const paragrafo = window.document.createElement('p');     
+
+    paragrafo.innerHTML = mensagem;       
+    paragrafo.classList.add('classe_base', classe);
+
+    resultado.appendChild(paragrafo);  // Adiciona o paragrafo a div
 }
 
-let form_calculo = window.document.querySelector('#form_calculo');
+const form_calculo = window.document.querySelector('#form_calculo');
 form_calculo.addEventListener('submit', calcularIMC);
