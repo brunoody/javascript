@@ -1,37 +1,59 @@
 
-function retornaHoraCompleta (hora, minuto) {
-    const horaFormatada = hora <= 9 ? '0'+hora : hora;
-    const minutoFormatado = minuto <= 9 ? '0'+minuto : minuto;
+// FORMA MUITO MAIS SIMPLES:
+const container = document.querySelector('.container');    
+const h1Mensagem = document.createElement('h1');
+const data = new Date();
 
-    return `${horaFormatada}:${minutoFormatado}`;
+const opcoesData = { // objeto
+    dateStyle: 'full'    
+};
+
+const opcoesHora = {
+    timeStyle: 'short'
 }
 
-function retornaMesExtenso (mesNumerico) {
-    const meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'dezembro'];
+container.innerHTML = '';
+container.appendChild(h1Mensagem);
+h1Mensagem.innerHTML = data.toLocaleDateString('pt-BR', opcoesData)+' '+data.toLocaleTimeString('pt-BR', opcoesHora);
 
-    return (mesNumerico >=0 && mesNumerico <=11) ? meses[mesNumerico] : 'Mês Desconhecido';
-}
 
-function retornaDiaSemana (diaNumerico) {
-    const diasSemana = ['Domingo', 'Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sábado'];
 
-    return (diaNumerico >= 0 && diaNumerico <= 6) ? diasSemana[diaNumerico] : 'Dia Desconhecido';    
-}
+// COMO EU FIZ:
 
-function mostraDiaCompleto () {
-    const container = document.querySelector('.container');    
-    const h1Mensagem = document.createElement('h1');
-    const dataAtual = new Date();        
+// function retornaHoraCompleta (hora, minuto) {
+//     const horaFormatada = hora <= 9 ? '0'+hora : hora;
+//     const minutoFormatado = minuto <= 9 ? '0'+minuto : minuto;
 
-    const mesExtenso = retornaMesExtenso(dataAtual.getMonth());
-    const diaSemana = retornaDiaSemana(dataAtual.getDay());        
-    const anoNumerico = dataAtual.getFullYear(); 
-    const horaCompleta = retornaHoraCompleta(dataAtual.getHours(), dataAtual.getMinutes());           
+//     return `${horaFormatada}:${minutoFormatado}`;
+// }
+
+// function retornaMesExtenso (mesNumerico) {
+//     const meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'dezembro'];
+
+//     return (mesNumerico >=0 && mesNumerico <=11) ? meses[mesNumerico] : 'Mês Desconhecido';
+// }
+
+// function retornaDiaSemana (diaNumerico) {
+//     const diasSemana = ['Domingo', 'Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sábado'];
+
+//     return (diaNumerico >= 0 && diaNumerico <= 6) ? diasSemana[diaNumerico] : 'Dia Desconhecido';    
+// }
+
+// function mostraDiaCompleto () {
+//     const container = document.querySelector('.container');    
+//     const h1Mensagem = document.createElement('h1');
+//     const dataAtual = new Date();        
+
+//     const mesExtenso = retornaMesExtenso(dataAtual.getMonth());
+//     const diaSemana = retornaDiaSemana(dataAtual.getDay());        
+//     const anoNumerico = dataAtual.getFullYear(); 
+//     const horaCompleta = retornaHoraCompleta(dataAtual.getHours(), dataAtual.getMinutes());           
     
-    h1Mensagem.innerHTML = `${diaSemana}, ${dataAtual.getDate()} de ${mesExtenso} de ${anoNumerico} ${horaCompleta}`;
+//     h1Mensagem.innerHTML = `${diaSemana}, ${dataAtual.getDate()} de ${mesExtenso} de ${anoNumerico} ${horaCompleta}`;
 
-    container.innerHTML = '';
-    container.appendChild(h1Mensagem);    
-}
+//     container.innerHTML = '';
+//     container.appendChild(h1Mensagem);    
+// }
 
-mostraDiaCompleto();
+// mostraDiaCompleto();
+
