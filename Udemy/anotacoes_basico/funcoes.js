@@ -28,6 +28,15 @@ console.log(potencia(5,2))
 let raiz1 = parametro => Math.sqrt(parametro);
 console.log(raiz1(400))
 
+// outro exemplo:
+const retornaMax = (x, y) => {
+    return x > y ? x : y;
+}
+console.log(retornaMax(10, 11));
+// no caso acima poderia-se eliminar as chaves e o return pois é uma condição simples:
+//const retornaMax = (x, y) => x > y ? x : y;
+
+
 
 
 
