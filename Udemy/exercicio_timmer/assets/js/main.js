@@ -9,12 +9,7 @@
  relogio.classList.add('relogio'); 
 
  function habilitarDesabilitarBotao (botao, habilitar) {
-
-    if (habilitar) {
-        botao.attributes.removeNamedItem('disabled'); 
-    } else {
-        botao.setAttribute('disabled', 'true');
-    };
+    botao.disabled = !habilitar;
  };     
 
  habilitarDesabilitarBotao(botaoPausar, false);
@@ -40,7 +35,7 @@ function inicializarHora () {
     mostraAvancoHora();
 }
 
- function clickBotaoIniciar(evento) {     
+ function executaClickBotaoIniciar(evento) {     
     relogio.classList.remove('relogioPausado');
 
     habilitarDesabilitarBotao(botaoIniciar, false);
@@ -50,7 +45,7 @@ function inicializarHora () {
     timmer = setInterval(incrementaSegundos, 1000);
  }
 
- function clickBotaoPausar(evento) {        
+ function executaClickBotaoPausar(evento) {        
     relogio.classList.add('relogioPausado'); 
 
     habilitarDesabilitarBotao(botaoPausar, false);
@@ -62,18 +57,32 @@ function inicializarHora () {
     }, 0);        
 }
 
-function clickBotaoZerar(evento) {
+function executaClickBotaoZerar(evento) {
     inicializarHora();  
     relogio.classList.remove('relogioPausado');  
     
     habilitarDesabilitarBotao(botaoZerar, false);
     habilitarDesabilitarBotao(botaoPausar, false);
-    habilitarDesabilitarBotao(botaoIniciar, true);   
-
+    habilitarDesabilitarBotao(botaoIniciar, true); 
 }
 
-botaoIniciar.addEventListener('click', clickBotaoIniciar);
-botaoPausar.addEventListener('click', clickBotaoPausar);
-botaoZerar.addEventListener('click', clickBotaoZerar);
+//botaoIniciar.addEventListener('click', executaClickBotaoIniciar);
+//botaoPausar.addEventListener('click', executaClickBotaoPausar);
+//botaoZerar.addEventListener('click', clickBotaoZerar);
+// ############# Tem uma outra forma de adicionar os clicks de uma só vez, assim: #############
+
+document.addEventListener('click', function (evento) {
+    const elemento = evento.target; // Esse target é o elemento que foi clicado!
+
+    if (elemento.classList.contains('iniciar')) {
+        executaClickBotaoIniciar(evento);
+    } else if (elemento.classList.contains('pausar')) {
+        executaClickBotaoPausar(evento);
+    } else if (elemento.classList.contains('zerar')) {
+        executaClickBotaoZerar(evento);
+    }
+}); 
+
+
 inicializarHora();
  
