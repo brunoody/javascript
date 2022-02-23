@@ -7,9 +7,19 @@
  let timmer;
 
  relogio.classList.add('relogio'); 
- botaoPausar.setAttribute('disabled', 'true');
- botaoZerar.setAttribute('disabled', 'true');
 
+ function habilitarDesabilitarBotao (botao, habilitar) {
+
+    if (habilitar) {
+        botao.attributes.removeNamedItem('disabled'); 
+    } else {
+        botao.setAttribute('disabled', 'true');
+    };
+ };     
+
+ habilitarDesabilitarBotao(botaoPausar, false);
+ habilitarDesabilitarBotao(botaoZerar, false);
+ 
  function mostraAvancoHora () {
     relogio.innerText = data.toLocaleTimeString('pt-BR', 
     {
@@ -32,18 +42,20 @@ function inicializarHora () {
 
  function clickBotaoIniciar(evento) {     
     relogio.classList.remove('relogioPausado');
-    botaoPausar.attributes.removeNamedItem('disabled'); 
-    botaoZerar.setAttribute('disabled', 'true');
-    botaoIniciar.setAttribute('disabled', 'true');  
+
+    habilitarDesabilitarBotao(botaoIniciar, false);
+    habilitarDesabilitarBotao(botaoPausar, true);
+    habilitarDesabilitarBotao(botaoZerar, false);
     
     timmer = setInterval(incrementaSegundos, 1000);
  }
 
  function clickBotaoPausar(evento) {        
     relogio.classList.add('relogioPausado'); 
-    botaoPausar.setAttribute('disabled', 'true');
-    botaoZerar.attributes.removeNamedItem('disabled');          
-    botaoIniciar.attributes.removeNamedItem('disabled'); 
+
+    habilitarDesabilitarBotao(botaoPausar, false);
+    habilitarDesabilitarBotao(botaoZerar, true);
+    habilitarDesabilitarBotao(botaoIniciar, true);
     
     setTimeout(function () { 
         clearInterval(timmer);
@@ -52,10 +64,12 @@ function inicializarHora () {
 
 function clickBotaoZerar(evento) {
     inicializarHora();  
-    relogio.classList.remove('relogioPausado');    
-    botaoZerar.setAttribute('disabled', 'true');
-    botaoIniciar.attributes.removeNamedItem('disabled');          
-    botaoPausar.attributes.removeNamedItem('disabled');
+    relogio.classList.remove('relogioPausado');  
+    
+    habilitarDesabilitarBotao(botaoZerar, false);
+    habilitarDesabilitarBotao(botaoPausar, false);
+    habilitarDesabilitarBotao(botaoIniciar, true);   
+
 }
 
 botaoIniciar.addEventListener('click', clickBotaoIniciar);
