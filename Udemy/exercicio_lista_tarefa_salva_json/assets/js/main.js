@@ -5,71 +5,69 @@ const listaDeTarefas = document.querySelector('.listaDeTarefas');
 const arrayTarefasSalvar = [];
 let sequencialIdBotao;
 
-function adicionaTarefa (textoTarefa = null) { 
-
-    let valorTextoTarefa = textoTarefa ? textoTarefa : inputTarefa.value;    
-     
-    if (valorTextoTarefa) {
-        const tarefa = document.createElement('li');        
-        tarefa.innerText = valorTextoTarefa;        
-
-        const botaoExcluirTarefa = document.createElement('button');        
-        botaoExcluirTarefa.innerText = 'Apagar';
-        botaoExcluirTarefa.addEventListener('click', eventoBotaoExcluirTarefa);                
-        
-        if  (salvarTarefa(valorTextoTarefa)) {            
-            listaDeTarefas.appendChild(tarefa);            
-            botaoExcluirTarefa.setAttribute('class', 'botaoApagarTarefa');    
-            botaoExcluirTarefa.setAttribute('id', sequencialIdBotao);    
-
-            tarefa.appendChild(botaoExcluirTarefa);    
-        };
-        inputTarefa.value = '';
-        inputTarefa.focus();       
-    };
-
-    console.log(arrayTarefasSalvar);
-};
-
-function salvarTarefa (textoTarefa) {
-    //console.log('aqui1');
-
+function validaMensagem(textoTarefa) {
     for (let objeto of arrayTarefasSalvar) {  
         if (objeto.descricaoTarefa === textoTarefa) {
             alert('Tarefa já adicionada!');            
             return false;
         };   
     };
+    return true;
+}
 
-    sequencialIdBotao++;
-    const objetoTarefa = {
-        idTarefa: sequencialIdBotao.toString(),
-        descricaoTarefa: textoTarefa
+function adicionaTarefa (textoTarefa = null) { 
+
+    let valorTextoTarefa = textoTarefa ? textoTarefa : inputTarefa.value;    
+     
+    if ((valorTextoTarefa) && validaMensagem(valorTextoTarefa))  {
+        const tarefa = document.createElement('li');        
+        tarefa.innerText = valorTextoTarefa;        
+
+        const botaoExcluirTarefa = document.createElement('button');        
+        botaoExcluirTarefa.innerText = 'Apagar';
+        botaoExcluirTarefa.addEventListener('click', eventoBotaoExcluirTarefa); 
+            
+        sequencialIdBotao++;
+        listaDeTarefas.appendChild(tarefa);            
+        botaoExcluirTarefa.setAttribute('class', 'botaoApagarTarefa');    
+        botaoExcluirTarefa.setAttribute('id', sequencialIdBotao);             
+        
+        const objetoTarefa = {
+            idTarefa: sequencialIdBotao.toString(),
+            descricaoTarefa: valorTextoTarefa
+        };
+        arrayTarefasSalvar.push(objetoTarefa);              
+        tarefa.appendChild(botaoExcluirTarefa);    
+                
+        salvarTarefa();
     };
-    arrayTarefasSalvar.push(objetoTarefa);  
+
+    inputTarefa.value = '';
+    inputTarefa.focus();       
+    console.log(arrayTarefasSalvar);
+};
+
+function salvarTarefa () {     
 
     const tarefasJSON = JSON.stringify(arrayTarefasSalvar);
-    localStorage.setItem('tarefas', tarefasJSON);    
-    return true;        
+    localStorage.setItem('tarefas', tarefasJSON);        
 }
 
 function eventoBotaoExcluirTarefa(evento) {
+    
     const botao = evento.target;
-    let removerTarefa = false;
-    let ind;    
-
-    for (ind = 0; arrayTarefasSalvar.length; ind++) {
+    
+    for (let ind = 0; arrayTarefasSalvar.length; ind++) {
         objeto = arrayTarefasSalvar[ind];
 
-        if (objeto.idTarefa === botao.id) {            
-            removerTarefa = true;     
+        if (objeto.idTarefa === botao.id) {
+            arrayTarefasSalvar.splice(ind, 1); // apaga o objeto do indece ind e 1 item apenas           
             break;
         };        
     };
 
-    if (removerTarefa) {
-        arrayTarefasSalvar.splice(ind, 1);
-    };      
+    salvarTarefa();
+    console.log(arrayTarefasSalvar);
     
     if (botao.classList.contains('botaoApagarTarefa')) {
         botao.parentElement.remove();    
