@@ -5,6 +5,8 @@ const listaDeTarefas = document.querySelector('.listaDeTarefas');
 const arrayTarefasSalvar = [];
 let sequencialIdBotao;
 
+//######################################################################
+
 function validaMensagem(textoTarefa) {
     for (let objeto of arrayTarefasSalvar) {  
         if (objeto.descricaoTarefa === textoTarefa) {
@@ -15,9 +17,14 @@ function validaMensagem(textoTarefa) {
     return true;
 }
 
+//######################################################################
+
 function adicionaTarefa (textoTarefa = null) { 
 
-    let valorTextoTarefa = textoTarefa ? textoTarefa : inputTarefa.value;    
+    // texto da tarefa vem do input ou do salvo no storage
+    let valorTextoTarefa = textoTarefa ? textoTarefa : inputTarefa.value; 
+
+    //console.log(valorTextoTarefa);   
      
     if ((valorTextoTarefa) && validaMensagem(valorTextoTarefa))  {
         const tarefa = document.createElement('li');        
@@ -44,8 +51,10 @@ function adicionaTarefa (textoTarefa = null) {
 
     inputTarefa.value = '';
     inputTarefa.focus();       
-    console.log(arrayTarefasSalvar);
+    //console.log(arrayTarefasSalvar);
 };
+
+//######################################################################
 
 function salvarTarefa () {     
 
@@ -53,8 +62,10 @@ function salvarTarefa () {
     localStorage.setItem('tarefas', tarefasJSON);        
 }
 
+//######################################################################
+
 function eventoBotaoExcluirTarefa(evento) {
-    
+
     const botao = evento.target;
     
     for (let ind = 0; arrayTarefasSalvar.length; ind++) {
@@ -74,21 +85,34 @@ function eventoBotaoExcluirTarefa(evento) {
   }
 }
 
+//######################################################################
+
 function pressionaTeclaInput (evento) {
     if (evento.keyCode === 13) {
         adicionaTarefa();
     };
 };
 
+//######################################################################
+
 function adicionaTarefaBotao () {// fiz uma função separada pois o adicionaTarefa tem um parametro meu
     adicionaTarefa();
 }
 
+//######################################################################
+
 function restaurarTarefasSalvas () {
 
+    const listaTarefasSalvas = localStorage.getItem('tarefas');
+    const arrayListaTarefasSalvas = JSON.parse(listaTarefasSalvas);
+  
+    for (let tarefa of arrayListaTarefasSalvas) {
+        adicionaTarefa(tarefa.descricaoTarefa);
+    }
 }
 
+//######################################################################
 sequencialIdBotao = 0;
-restaurarTarefasSalvas;
+restaurarTarefasSalvas();
 botaoAdicionaTarefa.addEventListener('click', adicionaTarefaBotao);
 inputTarefa.addEventListener('keypress', pressionaTeclaInput)
