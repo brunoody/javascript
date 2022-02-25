@@ -23,8 +23,6 @@ function adicionaTarefa (textoTarefa = null) {
 
     // texto da tarefa vem do input ou do salvo no storage
     let valorTextoTarefa = textoTarefa ? textoTarefa : inputTarefa.value; 
-
-    //console.log(valorTextoTarefa);   
      
     if ((valorTextoTarefa) && validaMensagem(valorTextoTarefa))  {
         const tarefa = document.createElement('li');        
@@ -50,8 +48,7 @@ function adicionaTarefa (textoTarefa = null) {
     };
 
     inputTarefa.value = '';
-    inputTarefa.focus();       
-    //console.log(arrayTarefasSalvar);
+    inputTarefa.focus();           
 };
 
 //######################################################################
@@ -76,10 +73,9 @@ function eventoBotaoExcluirTarefa(evento) {
             break;
         };        
     };
-
-    salvarTarefa();
-    console.log(arrayTarefasSalvar);
+    salvarTarefa();    
     
+    // aqui apaga o botão apaga o "pai" que é o li e apaga ele mesmo por consequencia
     if (botao.classList.contains('botaoApagarTarefa')) {
         botao.parentElement.remove();    
   }
