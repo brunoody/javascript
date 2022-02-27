@@ -9,7 +9,7 @@ let sequencialIdBotao;
 
 function validaMensagem(textoTarefa) {
     for (let objeto of arrayTarefasSalvar) {  
-        if (objeto.descricaoTarefa === textoTarefa) {
+        if (objeto.descricaoTarefa.toUpperCase() === textoTarefa.toUpperCase()) {
             alert('Tarefa já adicionada!');            
             return false;
         };   
