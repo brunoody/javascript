@@ -25,7 +25,7 @@ function criaMultiplicador (multiplicador) {
 };
 
 // posso chamar assim:
-const resultado = criaMultiplicador(2)(4);
+const resultado = criaMultiplicador(2)(4); // o 2 é o parametro da propria criaMultiplicador e o 4 é o parametro a função anonima do return dela.
 console.log(resultado);
 //ou assim:
 const resultado1 = criaMultiplicador(2);
