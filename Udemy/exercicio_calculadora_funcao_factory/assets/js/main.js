@@ -1,5 +1,5 @@
 
-///////////// CÓDIGO DO PROFESSOR, SÓ FIZ ALGUMAS ANOTAÇ~~OES, NOSSA TEM MUITA GAMBIARRA..
+///////////// CÓDIGO DO PROFESSOR, SÓ FIZ ALGUMAS ANOTAÇÕES, NOSSA TEM MUITA GAMBIARRA..
 function criaCalculadora() {
   return {
     display: document.querySelector('.display'),    
