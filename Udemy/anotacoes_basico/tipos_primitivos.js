@@ -33,5 +33,8 @@ console.log(Number.isInteger(num1));
 num1 = Number(num1.toFixed(2));
 console.log(num1);
 console.log(Number.isInteger(num1));
-
 // No Objeto Math tb tem inumeras rotinas com numeros.
+
+// Pegar a última letra de uma string:
+const teste = 'Marcelo toller';
+const ultimaLetra = teste.toLowerCase().endsWith('r'); // é uma especie de filtro. retorna um boolean se a string terminar com "r"

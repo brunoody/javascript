@@ -33,3 +33,14 @@ let objetoComFuncao = {
     }
 }
 console.log(objetoComFuncao.nomeCompleto()) // tem que colocar o abre/fecha parentes vazio aqui
+
+// Deletar uma chave do objeto:
+let pessoa2 = { // array é com colchetes e objeto é com chaves
+    nome: 'Luiz',
+    sobrenome: 'Miranda',
+    idade: 25
+};
+delete pessoa2.nome;
+console.log(pessoa2);
+
+
