@@ -12,3 +12,6 @@
 // Segundo dígito: Repete o item 2 acrescentendo o primeiro dígito, mas desta vez iniciando a multiplicação por 11 decrescente.
 // o segundo dígito é a mesma regra do item 3
 
+let cpf = '952.523.710-91';
+cpf = cpf.replace(/\D+/g, ''); // expressão regular! o \D significa tido que não é um Digito, tem que ser maiuscula! o + quer dizer um ou mais e o /g é padrão, busca global
+console.log(cpf);
