@@ -12,6 +12,32 @@
 // Segundo dígito: Repete o item 2 acrescentendo o primeiro dígito, mas desta vez iniciando a multiplicação por 11 decrescente.
 // o segundo dígito é a mesma regra do item 3
 
+function retornaCpfCalculoDigito(cpf) {
+    const arrayCpf = cpf.split('');
+    let fatorCalculo = 10;
+
+
+    let digito1 = arrayCpf.map(function(valor, indice){
+        let fator = fatorCalculo - indice;
+        return valor * fator;
+        }).reduce(function(acumulador, valor){
+            return acumulador + valor
+        }, 0); 
+        
+        fatorCalculo++;
+        digito1 = (fatorCalculo - (digito1 % fatorCalculo));
+        console.log(digito1);
+    };
+
+
+      
+
+
+
 let cpf = '952.523.710-91';
-cpf = cpf.replace(/\D+/g, ''); // expressão regular! o \D significa tido que não é um Digito, tem que ser maiuscula! o + quer dizer um ou mais e o /g é padrão, busca global
-console.log(cpf);
+cpfManipulacao = cpf.replace(/-.*/g, '').replace(/\D+/g, '')// No primeiro replace retita o -digito
+// No segundo: \D significa tido que não é um Digito, tem que ser maiuscula! o + quer dizer um ou mais e o /g é padrão, busca global
+
+cpfManipulacao = retornaCpfCalculoDigito(cpfManipulacao);
+console.log(cpfManipulacao);
+
