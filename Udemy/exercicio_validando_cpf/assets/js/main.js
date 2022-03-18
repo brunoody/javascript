@@ -12,32 +12,44 @@
 // Segundo dígito: Repete o item 2 acrescentendo o primeiro dígito, mas desta vez iniciando a multiplicação por 11 decrescente.
 // o segundo dígito é a mesma regra do item 3
 
-function retornaCpfCalculoDigito(cpf) {
-    const arrayCpf = cpf.split('');
-    let fatorCalculo = 10;
+function retornaCpfCalculoDigito(cpf) {        
+    cpf = cpf.replace(/-.*/g, '').replace(/\D+/g, '');
+    // No primeiro replace retita o -digito.
+    // No segundo: \D significa tudo que não é um Digito, tem que ser maiuscula! o + quer dizer um ou mais e o /g é padrão, busca global
 
+    let fatorCalculo = 10;    
 
-    let digito1 = arrayCpf.map(function(valor, indice){
-        let fator = fatorCalculo - indice;
-        return valor * fator;
+    for (let digitos=1; digitos<=2; digitos++) {
+        let digito = cpf.split('').map(function(valor, indice){                        
+            let fator = fatorCalculo - indice;
+            return valor * fator;
         }).reduce(function(acumulador, valor){
             return acumulador + valor
-        }, 0); 
-        
+        }, 0);    
+
+        digito = 11 - (digito%11);        
+        cpf = cpf + (digito > 9 ? 0 : digito);
         fatorCalculo++;
-        digito1 = (fatorCalculo - (digito1 % fatorCalculo));
-        console.log(digito1);
     };
+    return cpf;
+};     
 
 
-      
+//let cpf = '952.523.710-91';
+//let cpf = '788.804.524-36';
+let cpf = '633.633.112-14';
+let cpfConferencia = cpf.replace(/\D+/g, ''); //só deixa os numeros, tira ponto e traço
+
+cpf = retornaCpfCalculoDigito(cpf);
+
+console.log(cpf, cpfConferencia);
+if (cpfConferencia === cpf) {
+    console.log('CPF VÁLIDO')    
+} else {
+    console.log('CPF INVALIDO')    
+};
 
 
 
-let cpf = '952.523.710-91';
-cpfManipulacao = cpf.replace(/-.*/g, '').replace(/\D+/g, '')// No primeiro replace retita o -digito
-// No segundo: \D significa tido que não é um Digito, tem que ser maiuscula! o + quer dizer um ou mais e o /g é padrão, busca global
 
-cpfManipulacao = retornaCpfCalculoDigito(cpfManipulacao);
-console.log(cpfManipulacao);
 
