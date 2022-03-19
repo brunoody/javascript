@@ -14,22 +14,29 @@
 
 function retornaCpfCalculoDigito(cpf) {        
     cpf = cpf.replace(/-.*/g, '').replace(/\D+/g, '');
-    // No primeiro replace retita o -digito.
-    // No segundo: \D significa tudo que não é um Digito, tem que ser maiuscula! o + quer dizer um ou mais e o /g é padrão, busca global
+    // No primeiro replace retita o Traço e o digito.
+    // No segundo: \D significa tudo que não é um Digito, tem que ser maiuscula! o + quer dizer uma ou mais ocorrencias (no caso tem 2 pontos) e o /g é padrão, busca global
 
-    let fatorCalculo = 10;    
+    let multiplicador = 10;
+    const fatorCalculoDigito = 11;
+    const quantidadeDigitos = 2;    
 
-    for (let digitos=1; digitos<=2; digitos++) {
-        let digito = cpf.split('').map(function(valor, indice){                        
-            let fator = fatorCalculo - indice;
-            return valor * fator;
-        }).reduce(function(acumulador, valor){
-            return acumulador + valor
-        }, 0);    
-
-        digito = 11 - (digito%11);        
-        cpf = cpf + (digito > 9 ? 0 : digito);
-        fatorCalculo++;
+    for (let digitos=1; digitos<=quantidadeDigitos; digitos++) {
+        // SEM ARROW
+        //let digito = cpf
+        //            .split('')
+        //            .map(function(valor, indice){return valor * (multiplicador - indice)})
+        //            .reduce(function(acumulador, valor){return acumulador + valor}, 0);   
+        
+        // COM ARROW
+        let digito = cpf
+                    .split('')
+                    .map((valor, indice) => valor * (multiplicador - indice))
+                    .reduce((acumulador, valor) => acumulador + valor); 
+       
+        digito = fatorCalculoDigito - (digito % fatorCalculoDigito);        
+        cpf += (digito > 9 ? 0 : digito);
+        multiplicador++;        
     };
     return cpf;
 };     
