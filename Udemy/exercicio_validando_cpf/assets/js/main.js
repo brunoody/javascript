@@ -12,7 +12,9 @@
 // Segundo dígito: Repete o item 2 acrescentendo o primeiro dígito, mas desta vez iniciando a multiplicação por 11 decrescente.
 // o segundo dígito é a mesma regra do item 3
 
-function retornaCpfCalculoDigito(cpf) {        
+
+
+function retornaCpfCalculoDigito(cpf) {     
     cpf = cpf.replace(/-.*/g, '').replace(/\D+/g, '');
     // No primeiro replace retita o Traço e o digito.
     // No segundo: \D significa tudo que não é um Digito, tem que ser maiuscula! o + quer dizer uma ou mais ocorrencias (no caso tem 2 pontos) e o /g é padrão, busca global
@@ -24,13 +26,12 @@ function retornaCpfCalculoDigito(cpf) {
     for (let digitos=1; digitos<=quantidadeDigitos; digitos++) {
         // SEM ARROW
         //let digito = cpf
-        //            .split('')
+        //            .split('') poss usar Array.from(cpf) tb!
         //            .map(function(valor, indice){return valor * (multiplicador - indice)})
         //            .reduce(function(acumulador, valor){return acumulador + valor}, 0);   
         
         // COM ARROW
-        let digito = cpf
-                    .split('')
+        let digito = Array.from(cpf)//posso usar .split('') tb!
                     .map((valor, indice) => valor * (multiplicador - indice))
                     .reduce((acumulador, valor) => acumulador + valor); 
        
@@ -42,19 +43,44 @@ function retornaCpfCalculoDigito(cpf) {
 };     
 
 
+function validaCpf(cpf) {
+    let cpfConferencia = cpf.replace(/\D+/g, ''); //só deixa os numeros, tira ponto e traço
+    let cpfCalculado = retornaCpfCalculoDigito(cpf);
+
+    console.log(cpf, cpfConferencia, cpfCalculado);
+    if (cpfConferencia === cpfCalculado) {
+        console.log('CPF VÁLIDO')    
+    } else {
+        console.log('CPF INVALIDO')    
+    };
+
+}
+
+function criaCpf(){
+    let cpfAleatorio = '';
+
+    // cria 9 digitos aleatórios
+    for (let digitos=1; digitos <=9; digitos++) {
+        cpfAleatorio += Math.floor(Math.random() * 10);
+    }
+    // retorna com os dígitos calculados
+    cpfAleatorio = retornaCpfCalculoDigito(cpfAleatorio);    
+
+    // formata:
+    return cpfAleatorio.replace(/([0-9]{3})?([0-9]{3})?([0-9]{3})?([0-9]{2})/, "$1.$2.$3-$4");
+}
+
+//////////////////// testes //////////////////////
 //let cpf = '952.523.710-91';
 //let cpf = '788.804.524-36';
-let cpf = '633.633.112-14';
-let cpfConferencia = cpf.replace(/\D+/g, ''); //só deixa os numeros, tira ponto e traço
+//const cpf = '633.633.112-14';
 
-cpf = retornaCpfCalculoDigito(cpf);
+const cpfCriado = criaCpf();
+console.log('criado: ', cpfCriado);
 
-console.log(cpf, cpfConferencia);
-if (cpfConferencia === cpf) {
-    console.log('CPF VÁLIDO')    
-} else {
-    console.log('CPF INVALIDO')    
-};
+validaCpf(cpfCriado);
+
+
 
 
 

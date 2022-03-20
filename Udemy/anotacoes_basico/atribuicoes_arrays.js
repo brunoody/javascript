@@ -20,7 +20,7 @@ console.log(numeroUm, numeroDois);
 console.log(resto);
 
 //assim tb dá
-const [numeroUm, ,numeroTres, ,numeroQuatro] = numeros; // ir pulando 
+//const [numeroUm, ,numeroTres, ,numeroQuatro] = numeros; // ir pulando 
 
 // array dentro de array:
 const testeArray = [[1,2,3], [4,5,6], 7,8,9];  
