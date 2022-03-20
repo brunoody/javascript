@@ -33,7 +33,7 @@ function retornaCpfCalculoDigito(cpf) {
         // COM ARROW
         let digito = Array.from(cpf)//posso usar .split('') tb!
                     .map((valor, indice) => valor * (multiplicador - indice))
-                    .reduce((acumulador, valor) => acumulador + valor); 
+                    .reduce((acumulador, valor) => acumulador + valor, 0); 
        
         digito = fatorCalculoDigito - (digito % fatorCalculoDigito);        
         cpf += (digito > 9 ? 0 : digito);
@@ -44,11 +44,28 @@ function retornaCpfCalculoDigito(cpf) {
 
 
 function validaCpf(cpf) {
-    let cpfConferencia = cpf.replace(/\D+/g, ''); //só deixa os numeros, tira ponto e traço
-    let cpfCalculado = retornaCpfCalculoDigito(cpf);
+    let cpfConferencia;
+    let cpfCalculado;
+    let resultado = (typeof cpf !== 'undefined');
+    if (resultado) {
+        cpfConferencia = cpf.replace(/\D+/g, ''); //só deixa os numeros, tira ponto e traço
+        resultado = cpfConferencia.length === 11;
+    } 
+
+    // verifica se não foi encviadas sequencias:
+    if (resultado) {
+        // repete o primeiro caractere pelo tamanho do cpf, se essa repetição de caracteres iguais
+        // for igual ao cpf passado é pq é com sequencia de numeros repeeeetidos
+        resultado = cpfConferencia[0].repeat(cpfConferencia.length) !== cpfConferencia; 
+    }
+
+    if (resultado) {        
+        cpfCalculado = retornaCpfCalculoDigito(cpf);
+        resultado = cpfConferencia === cpfCalculado;
+    }
 
     console.log(cpf, cpfConferencia, cpfCalculado);
-    if (cpfConferencia === cpfCalculado) {
+    if (resultado) {
         console.log('CPF VÁLIDO')    
     } else {
         console.log('CPF INVALIDO')    
@@ -71,14 +88,16 @@ function criaCpf(){
 }
 
 //////////////////// testes //////////////////////
-//let cpf = '952.523.710-91';
-//let cpf = '788.804.524-36';
+//const cpf = '952.523.710-91';
+//const cpf = '788.804.524-36';
 //const cpf = '633.633.112-14';
 
 const cpfCriado = criaCpf();
 console.log('criado: ', cpfCriado);
 
-validaCpf(cpfCriado);
+validaCpf(cpfCriado);// válido
+validaCpf('92.523.710-91'); // inválido
+validaCpf('111.111.111-11'); // inválido
 
 
 
