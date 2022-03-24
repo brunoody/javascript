@@ -20,7 +20,13 @@ class Smartphone extends Dispositivo {
         this.cor = cor;
         this.modelo = modelo;
     }
+
+    ligar () {
+        super.ligar();// assim executa o método do pai. Eu que descobri, o professor não falou n aula. 
+        console.log('este ligar sobrescreve o ligar da classe pai');
+    }
 };
 
 const s1 = new Smartphone('Samsumg', 'Preto', 'M12');
-console.log(s1);
+s1.ligar();
+console.log(s1.ligado);
