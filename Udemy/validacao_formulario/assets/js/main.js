@@ -44,12 +44,13 @@ class ValidaFormulario {
   camposSaoValidos() {
     let valid = true;
 
+    //Percorre os elementos criados na tela para mostrar os erros e os remove
     for(let errorText of this.formulario.querySelectorAll('.error-text')) {
       errorText.remove();
     }
 
     for(let campo of this.formulario.querySelectorAll('.validar')) {
-      const label = campo.previousElementSibling.innerText;
+      const label = campo.previousElementSibling.innerText;// pega o texto do componente "irmão" antes dele, ou seja, o label acima com o nome amigavel vizualisado pelo usuario
 
       if(!campo.value) {
         this.criaErro(campo, `Campo "${label}" não pode estar em branco.`);
@@ -87,7 +88,7 @@ class ValidaFormulario {
   }
 
   validaCPF(campo) {
-    const cpf = new ValidaCPF(campo.value);
+    const cpf = new ValidaCPF(campo.value); // esta pegando a classe do outro fonte aonde estta essa classe de validação de cpf, mantive a validação do professor (gambiarras)
 
     if(!cpf.valida()) {
       this.criaErro(campo, 'CPF inválido.');
@@ -98,11 +99,11 @@ class ValidaFormulario {
   }
 
   criaErro(campo, msg) {
-    const div = document.createElement('div');
+    const div = document.createElement('div'); // cria uma div que vai mostrar o erro
     div.innerHTML = msg;
     div.classList.add('error-text');
-    campo.insertAdjacentElement('afterend', div);
+    campo.insertAdjacentElement('afterend', div); // coloca a div "após o final" do campo (Edit) aonde foi digitado o conteudo
   }
 }
 
-const valida = new ValidaFormulario();
+const valida = new ValidaFormulario(); // cria a classe e na criação (Constructor) seta o disparo das validações no "click" do botão
