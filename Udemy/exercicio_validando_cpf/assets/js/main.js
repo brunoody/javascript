@@ -70,7 +70,11 @@ function validaCpf(cpf) {
     } else {
         console.log('CPF INVALIDO')    
     };
+}
 
+// vai gerar números entre esses dois valores, logo sempre vai ter 9 digitos
+function rand(min = 100000000, max = 999999999) {
+    return String(Math.floor(Math.random() * (max - min) + min));
 }
 
 function criaCpf(){
@@ -80,6 +84,10 @@ function criaCpf(){
     for (let digitos=1; digitos <=9; digitos++) {
         cpfAleatorio += Math.floor(Math.random() * 10);
     }
+
+    // outra forma de gerar os 9 digitos aleatórios é assim:
+    cpfAleatorio = rand;
+
     // retorna com os dígitos calculados
     cpfAleatorio = retornaCpfCalculoDigito(cpfAleatorio);    
 
