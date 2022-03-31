@@ -19,3 +19,11 @@ this.qualquerCoisa = 'Qualquer coisa'; // o  this tb é o module.exports!!!
 // esse exports aponta para module.exports 
 //nsole.log(exports);
 // ver a importação no app.js
+
+// exportando classe
+class Pessoa {
+    constructor(nome){
+        this.nome = nome;
+    }
+}
+exports.Pessoa = Pessoa;
