@@ -27,3 +27,9 @@ class Pessoa {
     }
 }
 exports.Pessoa = Pessoa;
+
+// posso sobrescrever todo o modules tb:
+// não pode ser direto com exports, tem que ser module.exports
+module.exports = {
+    nome, sobreNome
+}
