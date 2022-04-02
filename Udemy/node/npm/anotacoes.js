@@ -26,4 +26,9 @@
 // para listar os pacotes: npm ls
 // para ver os niveis: nom ls --depth(0 ou 1 ou 2....)
 
-// pcotes desatualizados: npm outdated
+// pacotes desatualizados: npm outdated
+
+// versão no node: npm node --version
+// versão no npm: npm --version
+
+
