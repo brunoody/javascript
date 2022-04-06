@@ -1,0 +1,18 @@
+
+Site:
+webpack.js.org
+
+Primeira coisa,iniciar o npm: npm init -y (sem o -y ele vai fazer uma série de questionamentos)
+instalar os módulos babel e webpack: npm i --save-dev @babel/preset-env @babel/cli @babel/core babel-loader webpack webpack-cli regenerator-runtime core-js@2
+
+Agora, o meu package.json tem todas essas informações de o que deve ser instalado da proxima vez, então posso apagar toda a pasta node_modules e copiar este package.json e simplesmente dar o comando: npm install (ou só i) que ele instala tudo acima
+
+Criar o arquivo de configuração do webpack na pasta raiz:
+tem que ter o nome: webpack.config.js
+
+Criar a pasta src (source) aonde vai ficar meus códigos fonte
+Criado o arquivo index.js na pasta source, este arquivo é definido com "entry" no webpack.config.js
+
+Criada a pasta "public" que vai ter os arquivos gerados pelo webpack e tudo o que o usuário vê
+dentro dela, criar a pasta assets > js, é dentro desta pasta js que vai ficar o arquivo bundle.js que contem o código gerado pelo webpack para ser compatível com os navegadores antigos
+No arquivo webpack.config.js, a pasta js deve ser indicada no atrubuto "output"
