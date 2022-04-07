@@ -16,3 +16,6 @@ Criado o arquivo index.js na pasta source, este arquivo é definido com "entry" 
 Criada a pasta "public" que vai ter os arquivos gerados pelo webpack e tudo o que o usuário vê
 dentro dela, criar a pasta assets > js, é dentro desta pasta js que vai ficar o arquivo bundle.js que contem o código gerado pelo webpack para ser compatível com os navegadores antigos
 No arquivo webpack.config.js, a pasta js deve ser indicada no atrubuto "output"
+outras configurações tem que ser feitas no  webpack.config.js, comentei todas elas lá.
+Para iniciar o webpack, no package.json, em "scripts" coloco qualquer nome que quiser para chamar no npm, no caso coloquei "iniciar": "webpack -w", esse -w é um parametro para ele ficar "assistindo"  e converter os meus arquivos para o bundle
+Para executar esse script "iniciar" que criei, no terminal digito "npm run iniciar"
