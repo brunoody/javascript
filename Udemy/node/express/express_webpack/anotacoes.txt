@@ -1,0 +1,6 @@
+Vamos criar uma pasta chamada frontend e o que seria o backend é a pasta src
+Movendo coisas da pasta webpack:
+1 - webpack.config.js 
+2 - Copiar o conteudo html do index.html do webpack e colar no nosso index.ejs
+3 - Copiar a pasta assets do webpack para a pasta public aqui
+4 - Copiar o arquivo index.js (renomear para main.js) do webpack para o frontend
