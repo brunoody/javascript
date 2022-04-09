@@ -1,0 +1,2 @@
+middlewares são funções anonimas que podem ou não ser executadas entre (middle) ou depois um verbo (GET por exemplo) e seu método de resposta rota. Um exemplo de middlewares são os parametros (req, res) das funções chamadas nas rotas, tem uma terceira que não usamos ainda que seria a next: (req, res, next)
+Ver no módulo routes.js 

@@ -1,0 +1,51 @@
+// acessar a pasta "introdução" pelo terminal usando cd introducao
+// inicializar o npm: npm init -y
+// instalar o express: npm instal express
+// Express é tipo um servidor de internet
+
+///////////////// nodemon é para sempre reiniciar o servidor a cada alteração no código
+// instalar (dependencia de desenvolvimento): npm install nodemon --save-dev 
+// executar: npx nodemon server.js (é npx mesmo)
+// outra maneira de executar é ir no package.json e adicionar ou aterar um script e colocar "start": "nodemon server.js" e depois é só digitar mpm start no terminal
+
+////////////OLHAR DEMAIS COMENTÁRIOS NA PASTA NODEMON E PASTA INTRODUCAO
+
+const express = require('express');
+const app = express();
+const routes = require('./routes.js')
+const path = require('path');
+const meuMidlleware = require(path.resolve(__dirname, 'src', 'midllewares', 'midlleware.js'));
+
+// comando necessário para que o post receba os parametros pelo req. body
+// ver comando post abaixo..
+app.use(express.urlencoded({extended: true}))
+
+// midlle global. Descobri da pior forma que este use de Midlleware tem que vir DEPOIS da linha acima que é a que permite usar o body nos parametros req e res
+app.use(meuMidlleware);
+
+
+// esta é uma pasta aonde vai ficar meus conteudos estáticis
+// ela não é uma rota, não preciso digitar /public
+// como exemplo vou colocar um arquivo txt nela e 
+// no navegador acesso ele direto, assim: 127.0.0.1:3000/teste.txt
+app.use(express.static(path.resolve(__dirname, 'public')));
+
+// comando para o app usar o routes:
+app.use(routes);
+
+// o primeiro 'views' é o nome do recurso que eu quero usar, no caso, as views
+// o src e views é o caminho de onde estão as minhas views e que estou deixando para o path.reesolve resolver p mim
+app.set('views', path.resolve(__dirname, 'src', 'views'));
+
+// view engine: mesmo coisa: primeira string é o nome do recurso, e o segundo parametro é a engine que eu quero usar para reinderizar as views, tem vários, aqui vamos usar o ejs
+// é necessário instalar o ejs: terminal: npm i ejs
+app.set('view engine', 'ejs');
+
+
+
+
+
+app.listen(3000, () => { 
+    console.log('acessar http://localhost:3000'); 
+    console.log('servidor executando na porta 3000')
+});
