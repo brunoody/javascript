@@ -19,7 +19,10 @@ module.exports = {
                 options: {
                     presets: ['@babel/env']
                 }
-            }
+            } 
+        }, {
+            test: /\.css$/,
+            use: ['style-loader', 'css-loader']
         }]
     },
     devtool: 'source-map' // esse cara permite que o navegador mostre qual o fonte (moderno) deu algum erro, pois o bondle é um unico arquivo completamemte diferente e ainda por cima engloba vários outros arquivos, então é impossivel encontrar um erro nele sendo que ele é gerado automaticamente. É para criar um arquivo bundle.js.map
