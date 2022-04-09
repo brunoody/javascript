@@ -5,9 +5,9 @@ const path = require('path');
 module.exports = {
     //mode: 'development', // desenvolvimento, vai tentar diminuir ao máximo o arquivo, encurta nomes de variáveis, sem quebra de linha..
     mode: 'production', 
-    entry: './src/index.js', // arquivo de entrada
+    entry: './frontend/main.js', // arquivo de entrada
     output: { // é um objeto
-        path: path.resolve(__dirname, 'public', 'assets', 'js'), // nesta pasta vai ser gerado o arquivo bunble que contem o código js compativel com navegadores mais antigos
+        path: path.resolve(__dirname, 'public', 'assets', 'js'), // nesta pasta vai ser gerado o arquivo bundle que contem o código js compativel com navegadores mais antigos
         filename: 'bundle.js'
     },
     module: {

@@ -1,7 +1,7 @@
 //no console:
 // iniciar o npm: npm init -y
 // instalar o express: npm instal express
-// instalar o expre com dependenciaa de desenvolvedor em vez de dependencia do sistema: npm instal express --save-dev
+// instalar o express com dependencia de desenvolvedor em vez de dependencia do sistema: npm instal express --save-dev
 // instlar versão específica: npm instal express@2.1.0
 
 // versões: 
@@ -18,13 +18,13 @@
 // o circunflexo atualiza sempre a minor e a patch
 // o til ~ atualiza só a versão patch
 
-// atualizar para a ultima versão de uma major: nom instal express@4.x
+// atualizar para a ultima versão de uma major: npm instal express@4.x
 // nom update atualiza p ultima versao, sem mexer na major se tiver o ^
 
 // Para desisntalar: npm uninstall express
 
 // para listar os pacotes: npm ls
-// para ver os niveis: nom ls --depth(0 ou 1 ou 2....)
+// para ver os niveis: npm ls --depth(0 ou 1 ou 2....)
 
 // pacotes desatualizados: npm outdated
 
