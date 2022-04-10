@@ -1,0 +1,14 @@
+As telas e a forma de criar as do site do Mongodb estão bem diferentes da época da aula, mas consegui me achar
+
+Acesso com a conta do Google:
+https://www.mongodb.com/
+
+	
+Nome do meu Cluster: cursoJs01
+Username: marcelotoller
+senha: 78174949Mt
+
+Conexão:
+mongodb+srv://<username>:<password>@cursojs01.x2s5l.mongodb.net/meuPrimeiroBancoMongoDb?retryWrites=true&w=majority
+
+mongodb+srv://marcelotoller:78174949Mt@cursojs01.x2s5l.mongodb.net/meuPrimeiroBancoMongoDb?retryWrites=true&w=majority

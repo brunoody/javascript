@@ -1,0 +1,11 @@
+Vamos instalar um pacote para gerenciar dados e coneção e senhas para que isso não seja enviado para algum servidor ou coisa assim
+Instalação: npm install dotenv
+
+Outra instalação é o mongoose que faz a conexão, modelagem, regras, validação, tipos de dados:
+npm install mongoose
+
+Ambas instlaçções são dependencias do projeto e não do desenvolvimento
+
+Ver conexão em server.js.
+
+Na pasta src vamos criar a pasta models  (mvc - models, views e controllers)
