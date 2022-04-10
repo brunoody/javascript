@@ -1,0 +1,8 @@
+Quando precisa salvar algo em relação ao navegador do cliente. Exemplo: quando o Facebook pede para salvar os dados no computador. Isso fica gravado no servidor, no banco de dados e no navegador fica o "cookie" que tem uma espécie de identificador que recupera isso do banco de dados. Esse cookie é enviado para o servidor e verificado se é daquele navegador, caso sim já loga no facebook (neste caso) mas as sessões podem ser usadas para salvar qualquer outra coisa.
+
+Vamos instalae tb o flash messagens que é para que o nosso servidor mostre uma mensagem para o usuário e depois consuma com ela, por exemplo se o usuário digitou a senha erra a mensagem vai aparecer mas depois se ele digitar corretamente essa mensagem deve deixar de existir..    
+
+ver sesseion no server.js, após conectar na base de dados
+
+instalações no node:
+npm i express-session connect-mongo connect-flash
