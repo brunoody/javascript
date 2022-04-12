@@ -1,30 +1,36 @@
-<%- include('includes/head'); %>
-<body>
+<%- include('includes/head') %>
 
-  <section class="container">
-    <h1>
+  <body>
 
-      <!--   tags do ejs: <%=  %>    -->
-      <%= titulo %> <br> <!--   titulo é a própria chave do objeto passado la no render do homeController!   -->
-      <%- titulo %> <br> <!--   usando o - em vez do = na tag, o = vai ignorar tags html passadas no conteudo, vai mostar literalmente o html em vez de executar, o = é mais seguro! a não ser que eu tenha certeza de que esdtou passando tags html e queira executar, daí usa o sinal de -    -->
+    <section class="container">
+      <h1>
 
-      <!--   posso usar JS entre as tags! mas tem que usar as tagas a cada linha   -->
-      <% if(typeof numeros !== 'undefined') { %>
-        <%= numeros %>
-      <% } else { %>
-        Os números não foram enviados
-      <% } %><br>    
-     
-      <%= umaVariavelLocal%>
-    </h1>
-    <form action="/" method="post">
-      <label>Cliente</label>
-      <input type="text" name="cliente">
-      <button type="submit"></button>
-    </form>
-  </section>
+        <!--   tags do ejs: <%=  %>    -->
+        <%= titulo %> <br> <!--   titulo é a própria chave do objeto passado la no render do homeController!   -->
+          <%- titulo %> <br>
+            <!--   usando o - em vez do = na tag, o = vai ignorar tags html passadas no conteudo, vai mostar literalmente o html em vez de executar, o = é mais seguro! a não ser que eu tenha certeza de que esdtou passando tags html e queira executar, daí usa o sinal de -    -->
 
-  <script src="./assets/js/bundle.js"></script>
-</body>
+            <!--   posso usar JS entre as tags! mas tem que usar as tagas a cada linha   -->
+            <% if(typeof numeros !=='undefined' ) { %>
+              <%= numeros %>
+                <% } else { %>
+                  Os números não foram enviados
+                  <% } %><br>
+                    <%= umaVariavelLocal%>
 
-</html>
+      </h1>
+      <form action="/" method="post">
+        <!-- usando o token de segurança do csurf: -->
+        <!-- criar um input hidden, que seria um edir invidsivel -->
+        <!-- IMPORTANTE! o nome tem que ser _csrf o value tem que ser o nome do atributo que coloquei no meu csrfMiddleware -->
+        <input type="hidden" name="_csrf" value="<%= meuCsrfToken %>">
+        <label>Cliente</label>
+        <input type="text" name="cliente">
+        <button type="submit"></button>
+      </form>
+    </section>
+
+    <script src="./assets/js/bundle.js"></script>
+  </body>
+
+  </html>

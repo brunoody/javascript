@@ -25,28 +25,21 @@ mongosse.connect(process.env.CONNECTIONSTRING, {
 //################ session
 const minhaSession = require('express-session');
 const MongoStore = require('connect-mongo'); 
-const messageFlash = require('connect-flash');
+const flash = require('connect-flash');
 //################ session
 
 const routes = require('./routes.js')
 const path = require('path');
 const helmet = require('helmet');
 const csrtf = require('csurf'); // ver middleware na pasta middlewares
-const flash = require('connect-flash');
-const { meuMidlleware, checkCsrfError } = require(path.resolve(__dirname, 'src', 'midllewares', 'midlleware.js'));
+
+const { meuMidlleware, checkCsrfError, csrfMiddleware } = require(path.resolve(__dirname, 'src', 'midllewares', 'midlleware.js'));
 
 app.use(helmet());
 
 // comando necessário para que o post receba os parametros pelo req. body
-// ver comando post abaixo..
 app.use(express.urlencoded({extended: true}))
 
-app.use(csrtf());
-
-// midlle global. Descobri da pior forma que este use de Midlleware tem que vir DEPOIS da linha acima que é a que permite usar o body nos parametros req e res
-app.use(meuMidlleware);
-
-app.use(checkCsrfError);
 
 // esta é uma pasta aonde vai ficar meus conteudos estáticis
 // ela não é uma rota, não preciso digitar /public
@@ -74,6 +67,18 @@ app.use(sessionOptions);
 
 // temos que dizer para o nosso app usar a nossa flash message. Ver arquivo anotações.txt
 app.use(flash());
+
+// importante que esteja aqui, se colocar mais p cima não funciona
+app.use(csrtf());
+
+// midlle global. Descobri da pior forma que este use de Midlleware tem que vir DEPOIS da linha acima que é a que permite usar o body nos parametros req e res
+app.use(meuMidlleware);
+
+//middleware que captura erro de falta de token e mosytra uma página, a ordem em que ele é executado faz diferença, me quebrei com isso!
+app.use(checkCsrfError);
+
+// Middleware qaue gera o token de segurança da minha rota
+app.use(csrfMiddleware);
 
 // comando para o app usar o routes:
 app.use(routes);
