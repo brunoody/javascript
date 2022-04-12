@@ -1,0 +1,4 @@
+Estes recursos são para a segurança do site. Caso alguém intercepte as minhas rotas, elas mudam aleatoriamemnte com um token gigante. Cada formulário será injetado esse token
+
+instalações: 
+npm i helmet csurf
