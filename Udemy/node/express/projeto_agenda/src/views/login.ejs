@@ -7,6 +7,7 @@
         <div class="col-lg-8 my-3">
           <h1 class="text-center">Criar conta ou entrar</h1>
           <p class="text-center laad">Faça login ou crie sua conta abaixo</p>
+          <%- include('includes/messages') %>
           <div class="row">
             <div class="col-lg">
               <h4>Faça seu cadastro</h4>
@@ -27,7 +28,7 @@
             <div class="col-lg">
               <h4>Faça seu login</h4>
               <p>Se você já tem uma conta, faça login abaixo:</p>
-              <form action="/login/login  " method="POST"> <!-- aqui neste form vai a minha rota de cadastro! o Method padrão é GET então precisei colocar o POST-->
+              <form action="/login/login" method="POST"> <!-- aqui neste form vai a minha rota de cadastro! o Method padrão é GET então precisei colocar o POST-->
                 <input type="hidden" name="_csrf" value=<%= meuCsrfToken %>>
                 <div class="form-group">
                   <label>Seu e-mail</label>

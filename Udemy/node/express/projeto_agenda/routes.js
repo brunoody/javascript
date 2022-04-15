@@ -10,5 +10,6 @@ route.get('/', homeController.index);
 
 // Rotas de login
 route.get('/login/index', loginController.index);// o index não precisaria digitar pois ele pega sozinho, assim como acima tb poderia colocar /index
+route.post('/login/register', loginController.register); // cadastrar novos usuarios
 
 module.exports = route;

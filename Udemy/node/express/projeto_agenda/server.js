@@ -74,10 +74,10 @@ app.use(csrtf());
 // midlle global. Descobri da pior forma que este use de Midlleware tem que vir DEPOIS da linha acima que é a que permite usar o body nos parametros req e res
 app.use(meuMidlleware);
 
-//middleware que captura erro de falta de token e mosytra uma página, a ordem em que ele é executado faz diferença, me quebrei com isso!
+//middleware que captura erro de falta de token e mostra uma página, a ordem em que ele é executado faz diferença, me quebrei com isso!
 app.use(checkCsrfError);
 
-// Middleware qaue gera o token de segurança da minha rota
+// Middleware que gera o token de segurança da minha rota
 app.use(csrfMiddleware);
 
 // comando para o app usar o routes:

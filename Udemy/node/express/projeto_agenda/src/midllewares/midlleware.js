@@ -1,20 +1,18 @@
 
 // aqui vamos exportar um midlleware global. ver no server.js    
-exports.meuMidlleware = (req, res, next) => {    
-
-    console.log('meuMidlleware - Inicio');
+exports.meuMidlleware = (req, res, next) => {        
     //objeto locals:
-    res.locals.umaVariavelLocal = 'este é o valor da variável local';
+    //res.locals.umaVariavelLocal = 'este é o valor da variável local';
+    res.locals.errors = req.flash('errors'); // Captura as mensagens de erro que registrei nmo loginController    
+    res.locals.sucess = req.flash('sucess');
     
-    console.log('passei no midlleware global');
-    //console.log(req.body);
-    console.log('meuMidlleware - fim');
     next(); //midllewares SEMPRE precisam de next
 }
 
 exports.checkCsrfError = (err, req, res, next) => {
     console.log('checkCsrfError - inicio');
-    if (err) { // qualquer erro mostra a página 404       
+    if (err) { // qualquer erro mostra a página 404     
+       console.log(err);       
        res.render('404.ejs')
     }    
     next();
