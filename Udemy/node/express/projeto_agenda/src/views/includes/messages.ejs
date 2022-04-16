@@ -4,22 +4,20 @@
         <div class="col my-3">
             <div class="alert alert-danger">
                 <% errors.forEach(erro=> { %>
-                    <% erro %> <br>
+                    <%- erro %> <br>
                         <% }); %>
             </div>
         </div>
     </div>
     <% } %>
 
-    <% if (sucess.length> 0) { %>
-        <!--esse errors esta no middleware é uma local global-->
-        <div class="row">
-            <div class="col my-3">
-                <div class="alert alert-sucess">
-                    <% sucess.forEach(sucess=> { %>
-                        <% sucess %> <br>
-                            <% }); %>
+        <% if (sucess.length> 0) { %>
+            <!--esse errors esta no middleware é uma local global-->
+            <div class="row">
+                <div class="col my-3">
+                    <div class="alert alert-success">
+                        <%- sucess %>
+                    </div>
                 </div>
             </div>
-        </div>
-        <% } %>    
+            <% } %>

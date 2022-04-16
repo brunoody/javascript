@@ -21,13 +21,13 @@ exports.register = async (req, res) => {
             req.flash('errors', login.errors); // mostra os erros 
             // salva a sessão e retorna para a página de login para mostrar os erros
             req.session.save(function() {
-            return res.redirect('back');            
+            return res.redirect('/login/index');            
             }) 
             return;
         }  
-        req.flash('sucess', 'Seu usuário foi crido com sucesso');         
+        req.flash('sucess', 'Seu usuário foi criado com sucesso');         
         req.session.save(function() {
-        return res.redirect('back');
+        return res.redirect('/login/index');
         }) 
 
         //res.send(login.errors); 
