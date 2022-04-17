@@ -1,4 +1,2 @@
-Estes recursos são para a segurança do site. Caso alguém intercepte as minhas rotas, elas mudam aleatoriamemnte com um token gigante. Cada formulário será injetado esse token
-
-instalações: 
-npm i helmet csurf
+Para fazer um hash da senha que vai ser gravada na base de dados, vamos instalar o pacote:
+npm i bcryptjs
