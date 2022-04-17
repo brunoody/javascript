@@ -33,7 +33,7 @@ const path = require('path');
 const helmet = require('helmet');
 const csrtf = require('csurf'); // ver middleware na pasta middlewares
 
-const { meuMidlleware, checkCsrfError, csrfMiddleware } = require(path.resolve(__dirname, 'src', 'midllewares', 'midlleware.js'));
+const { meuMidlleware, checkCsrfError, csrfMiddleware, verificaUsuarioLogado } = require(path.resolve(__dirname, 'src', 'midllewares', 'midlleware.js'));
 
 app.use(helmet());
 
@@ -79,6 +79,8 @@ app.use(checkCsrfError);
 
 // Middleware que gera o token de segurança da minha rota
 app.use(csrfMiddleware);
+
+app.use(verificaUsuarioLogado);
 
 // comando para o app usar o routes:
 app.use(routes);

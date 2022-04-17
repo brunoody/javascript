@@ -1,3 +1,4 @@
+const { stringifyRequest } = require("css-loader/dist/utils");
 
 // aqui vamos exportar um midlleware global. ver no server.js    
 exports.meuMidlleware = (req, res, next) => {        
@@ -12,7 +13,7 @@ exports.meuMidlleware = (req, res, next) => {
 }
 
 exports.checkCsrfError = (err, req, res, next) => {
-    console.log('checkCsrfError - inicio');
+    console.log('checkCsrfError - inicio');    
     if (err) { // qualquer erro mostra a página 404     
        console.log(err);       
        res.render('404.ejs')
@@ -24,5 +25,15 @@ exports.csrfMiddleware = (req, res, next) => {
     res.locals.meuCsrfToken = req.csrfToken();// este caa gera o tokem de segurança
     // o meuCsrfToken vai ser usado no insdex.ejs! na verdade em todos os formulários da página tem que fazer o mesmo procedimento, ver index.ejs 
     next();
-
 }
+
+exports.verificaUsuarioLogado = (req, res, next) => {
+    // aqui verifico se a o usuário esta tentando acessar algo que não seja o login e não esteja logado
+    // esse middleware é global, entao se eu não verificar se é /login ele vcai num loop
+    if ((req.originalUrl.indexOf('/login') === -1) && (!req.session.user)){        
+        res.redirect('/login/index');
+        return;
+    }
+    next();
+}
+

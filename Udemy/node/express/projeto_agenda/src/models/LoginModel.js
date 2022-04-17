@@ -36,8 +36,6 @@ class Login {
     // como vou lidar com base de dados tem que ser async!!
     async usuariojaCadastrado(logando) {  
         
-        //console.log(this.body.email);
-        
         if (this.errors.length === 0) {            
             this.user = await LoginModel.findOne({email: this.body.email});// manda um objeto que seria como se fosse um "where" na base, pesqiisando na "tabela" de login pelo "campo" email com o valor que o usuário digitou;
 
@@ -62,9 +60,6 @@ class Login {
 
         // aqui passa a senha e o hash(salvo na base de dados)
         // o this.user já consegui no própio usuariojaCadastrado 
-        console.log('tollerrrrrrrrr');
-        console.log(this.body.password);
-        console.log(this.user.password);
         if (!bcryptjs.compareSync(this.body.password, this.user.password)) {
             this.errors.push('Senha inválida');
             this.user = null;

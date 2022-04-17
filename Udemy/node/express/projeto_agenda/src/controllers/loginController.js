@@ -3,6 +3,7 @@ const { async } = require('regenerator-runtime');
 const Login = require('../models/LoginModel.js');
 
 exports.index = (req, res) => {
+    // se o usuário estiver logado e acessar a tela de login ele manda para a página principal pois ele não precisa da tela de login, ele precisa se deslogar para chegar nela de novo.
     if (req.session.user) {
         res.redirect('/');
         return;
