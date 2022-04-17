@@ -5,6 +5,8 @@ exports.meuMidlleware = (req, res, next) => {
     //res.locals.umaVariavelLocal = 'este é o valor da variável local';
     res.locals.errors = req.flash('errors'); // Captura as mensagens de erro que registrei nmo loginController    
     res.locals.sucess = req.flash('sucess');
+
+    res.locals.user = req.session.user; // para por exemplo, mostrar o nome do usuário na página principal emquanto ele navega
     
     next(); //midllewares SEMPRE precisam de next
 }

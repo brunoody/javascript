@@ -1,22 +1,22 @@
+const { render } = require('express/lib/response');
 const { async } = require('regenerator-runtime');
 const Login = require('../models/LoginModel.js');
 
 exports.index = (req, res) => {
+    if (req.session.user) {
+        res.redirect('/');
+        return;
+    }
     res.render('login');
 }
 
 // esta função precisa ser async pois recebe uma outra async (login.register)
 exports.register = async (req, res) => {
-    console.log('entrou na rota de register');
     try {
     // aqui p body passa por dentro da classe e são feitas validações
         const login = new Login(req.body);
-        try {
-            await login.register();
-        } catch(e) {
-            console.log(e);  
-        }   
-
+        await login.register();
+        
         if (login.errors.length > 0) {
             req.flash('errors', login.errors); // mostra os erros 
             // salva a sessão e retorna para a página de login para mostrar os erros
@@ -35,5 +35,36 @@ exports.register = async (req, res) => {
         console.log(e);
         res.render('404.ejs')
     }
+}
 
+exports.logout = (req, res ) => {
+    req.session.destroy();
+    res.redirect('/login/index');
+}
+
+exports.login = async (req, res) => {
+    try {
+    // aqui p body passa por dentro da classe e são feitas validações
+        const login = new Login(req.body);
+        await login.logar();
+
+        if (login.errors.length > 0) {
+            req.flash('errors', login.errors); // mostra os erros                        
+            res.redirect('/login/index');                        
+            return;
+        }  
+
+        //req.flash('sucess', 'Login efetuado com sucesso. Redirecionando para os seus contatos.. '); 
+        //res.redirect('/login/index'); //
+        req.session.user = login.user; // passa o ussuario para a session, assim que sabemos em outros pontos que o usuário esta conectado
+
+        req.session.save(function() {
+            return res.redirect('/');            
+        }); 
+
+        //res.send(login.errors); 
+    } catch (e) {
+        console.log(e);
+        res.render('404.ejs')
+    }
 }

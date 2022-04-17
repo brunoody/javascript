@@ -34,15 +34,42 @@ class Login {
     }
 
     // como vou lidar com base de dados tem que ser async!!
-    async usuariojaCadastrado() {         
+    async usuariojaCadastrado(logando) {  
+        
+        //console.log(this.body.email);
+        
         if (this.errors.length === 0) {            
-            const user = await LoginModel.findOne({email: this.body.email});// manda um objeto que seria como se fosse um "where" na base, pesqiisando na "tabela" de login pelo "campo" email com o valor que o usuário digitou;
+            this.user = await LoginModel.findOne({email: this.body.email});// manda um objeto que seria como se fosse um "where" na base, pesqiisando na "tabela" de login pelo "campo" email com o valor que o usuário digitou;
 
+            //console.log(user.email);                
+            //console.log(user.password);              
+
+            if (logando && !this.user) {
+                this.errors.push('Usuário não cadastrado');
+            }  
             //se  a const User vier com valor é pq ele já exite:
-            if (user) {            
+            else if (!logando && this.user) {            
                 this.errors.push('Usuário já existe');
             }
         } 
+    }
+
+    async logar () {
+        this.valida();
+        await this.usuariojaCadastrado(true); 
+
+        if (this.errors.length > 0) return; // para parar
+
+        // aqui passa a senha e o hash(salvo na base de dados)
+        // o this.user já consegui no própio usuariojaCadastrado 
+        console.log('tollerrrrrrrrr');
+        console.log(this.body.password);
+        console.log(this.user.password);
+        if (!bcryptjs.compareSync(this.body.password, this.user.password)) {
+            this.errors.push('Senha inválida');
+            this.user = null;
+            return;
+        }
     }
 
     // esse register precisa ser async pq vai executar um registro na base de dados e retornar uma promisse!
@@ -51,7 +78,7 @@ class Login {
         this.valida();
 
         // chamada await pq ela é async devido a lidar com banco de dados
-        await this.usuariojaCadastrado(); 
+        await this.usuariojaCadastrado(false); 
                 
         if (this.errors.length > 0) return; // para parar
 
@@ -59,11 +86,7 @@ class Login {
         const salt = bcryptjs.genSaltSync();
         this.body.password = bcryptjs.hashSync(this.body.password, salt) ;
 
-        try {
-            this.user = await LoginModel.create(this.body);// isso é uma promisse, aqui o body já foi validado e removidas as chaves que eu não quero mandar para a base (método cleanUp)
-        } catch(e) { 
-            console.log(e)
-        }
+        this.user = await LoginModel.create(this.body);// isso é uma promisse, aqui o body já foi validado e removidas as chaves que eu não quero mandar para a base (método cleanUp)
     }
     cleanUp() {
         // especie de validação (professor) que verifica se os valores das chaves que estão vindo do formuláro são do tipo string, se não for ele atribui uma string vazia ao valor.
