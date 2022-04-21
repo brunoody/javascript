@@ -20,11 +20,13 @@ class Contato {
     }
     
     valida() {
-        this.cleanUp();
-       
+        this.cleanUp();       
+        
         if (!validator.isEmail(this.body.email)) {
             this.errors.push('E-mail inválido');
         };
+
+        // dá p colocar mais validações aqui mas não to afim
     }
     
     async contatojaCadastrado () {  
@@ -65,7 +67,19 @@ class Contato {
     }
 
     async buscaPorId(id) {
-        return await ContatoModel.findById(id);
+        this.contato = await ContatoModel.findById(id);
+    }
+
+    async indexEdit(id) {
+        this.valida();
+
+        if (this.errors.length > 0) {
+            return
+        }
+        // encontra e atualiza! 
+        this.contato = await ContatoModel.findByIdAndUpdate(id, this.body, {
+            new: true //isso é umparametro para dizer para após atualizar é para retonar os dados atualizados e não os antigos..
+        });
     }
 }
 
