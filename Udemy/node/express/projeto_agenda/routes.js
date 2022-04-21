@@ -18,6 +18,7 @@ route.get('/login/logout', loginController.logout); // para o usuário se deslog
 // Rotas de contatos da agenda
 route.get('/contato/index', contatoController.index);
 route.post('/contato/register', contatoController.register);
+route.get('/contato/index/:id', contatoController.editIndex);
 
 
 module.exports = route;

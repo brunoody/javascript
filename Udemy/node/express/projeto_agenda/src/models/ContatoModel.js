@@ -1,10 +1,11 @@
 const mongosse = require('mongoose');
 
-const ContatoScheme = new mongosse.Schema({
+const ContatoScheme = new mongosse.Schema({     
     nome: {type: String, required: true},
     sobrenome: {type: String, required: true},
     email: {type: String, required: true},
-    telefone: {type: String, required: true}
+    telefone: {type: String, required: true},
+    criadoEm: {type: Date, default: Date.now}
 });
 
 // criação do model:
@@ -15,13 +16,12 @@ class Contato {
     constructor(body) {
         this.body = body;
         this.errors = [];
-        this.Contato = null;   
+        this.contato = null;   
     }
     
     valida() {
         this.cleanUp();
-
-        console.log('telefone: ', this.body.telefone, typeof this.body.telefone);
+       
         if (!validator.isEmail(this.body.email)) {
             this.errors.push('E-mail inválido');
         };
@@ -62,6 +62,10 @@ class Contato {
             email: this.body.email,
             telefone: this.body.telefone        
         }
+    }
+
+    async buscaPorId(id) {
+        return await ContatoModel.findById(id);
     }
 }
 
