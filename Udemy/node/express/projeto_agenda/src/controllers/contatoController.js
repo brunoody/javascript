@@ -13,14 +13,14 @@ exports.register = async (req, res) => {
         if (contato.errors.length > 0) {
            req.flash('errors', contato.errors);                                            
         } else {
-            req.flash('sucess', 'Contato cadastrado com sucesso.'); 
+           req.flash('sucess', 'Contato cadastrado com sucesso.'); 
         };  
 
         //res.send(contato.contato._id);
 
-        if (!contato.contato._id) {
+        if (!contato.contato) {
             res.redirect(`/contato/index/`);                             
-        } else {
+        } else if (contato.contato._id) {
             res.redirect(`/contato/index/${contato.contato._id}`);                             
         }
 

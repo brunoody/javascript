@@ -39,7 +39,13 @@
                             <input value="<%= contato.telefone %>" type="tel" class="form-control" name="telefone">
                         </div>
 
-                        <button type="submit" class="btn btn-primary my-3">Salvar</button>
+                        <% if (!contato._id) { %>
+                            <button type="submit" class="btn btn-primary my-3">Incluir</button>
+                        <% } else { %>
+                            <button type="submit" class="btn btn-primary my-3">Alterar</button>  
+                            <a class="btn btn-primary my-3" href="/contato/index">Cadastrar novo Contato</a>
+                        <% } %>        
+                        
                     </form>
                 </div>
             </div>

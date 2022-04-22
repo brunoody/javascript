@@ -35,7 +35,9 @@ class Contato {
             this.contato = await ContatoModel.findOne({email: this.body.email});
 
             if (this.contato) {            
-               this.errors.push('Contato com este e-mail já cadastrado');            
+               this.errors.push('Contato com este e-mail já cadastrado'); 
+               this.contato = null;
+
             } 
         }
     }   
