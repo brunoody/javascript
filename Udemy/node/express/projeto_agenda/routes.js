@@ -20,6 +20,7 @@ route.get('/contato/index', contatoController.index);
 route.post('/contato/register', contatoController.register);
 route.get('/contato/index/:id', contatoController.indexCadastrado);
 route.post('/contato/edit/:id', contatoController.indexEdit);
+route.get('/contato/delete/:id', contatoController.indexDelete);
 
 
 module.exports = route;

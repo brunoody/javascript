@@ -5,40 +5,29 @@
     <div class="col-lg-2"></div>
 
     <div class="col-lg-8 my-3">
-      <h1 class="text-center">Agenda</h1>
-      <p class="text-center laad">Seus contatos estão abaixo</p>
+      <h1 class="text-center">Agenda</h1>      
 
       <%- include('includes/messages')%>
-
+      <% if (listaContatos.length === 0) { %>                 
+          <h4 class="text-center my-3">Nenhum contato cadastrado para este usuário</h4>
+          <a class="btn btn-primary my-3" href="/contato/index">Cadastrar novo Contato</a>  
+      <% } else { %>
+      <p class="text-center laad">Seus contatos estão abaixo</p>
       <div class="responsive-table">
         <table class="table my-3">
+          <% listaContatos.forEach(contato => { %>
           <tr>
-            <td>Marcelo</td>
-            <td>Toller</td>
-            <td>51 996941488</td>
-            <td>marcelo.toller@yahoo.com.br</td>
+            <td><%= contato.nome %></td>
+            <td><%= contato.sobrenome %></td>
+            <td><%= contato.email %></td>
+            <td><%= contato.telefone %></td>            
+            <td><a href="contato/index/<%= contato._id %>">Editar</a></td>
+            <td><a class="text-danger" href="contato/delete/<%= contato._id %>">Excluir</a></td>
           </tr>
-          <tr>
-            <td>Marcelo</td>
-            <td>Toller</td>
-            <td>51 996941488</td>
-            <td>marcelo.toller@yahoo.com.br</td>
-          </tr>
-          <tr>
-            <td>Marcelo</td>
-            <td>Toller</td>
-            <td>51 996941488</td>
-            <td>marcelo.toller@yahoo.com.br</td>
-          </tr>
-          <tr>
-            <td>Marcelo</td>
-            <td>Toller</td>
-            <td>51 996941488</td>
-            <td>marcelo.toller@yahoo.com.br</td>
-          </tr>
-
+          <% }) %>
         </table>
       </div>
+      <% } %>
     </div>
 
     <div class="col-lg-2"></div>

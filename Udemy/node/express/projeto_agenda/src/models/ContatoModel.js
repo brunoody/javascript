@@ -5,7 +5,8 @@ const ContatoScheme = new mongosse.Schema({
     sobrenome: {type: String, required: true},
     email: {type: String, required: true},
     telefone: {type: String, required: true},
-    criadoEm: {type: Date, default: Date.now}
+    criadoEm: {type: Date, default: Date.now},
+    usuarioId: {type: String, required: true}
 });
 
 // criação do model:
@@ -31,8 +32,9 @@ class Contato {
     
     async contatojaCadastrado () {  
         
+        console.log('contatojaCadastrado', this.body.usuarioId)
         if (this.errors.length === 0) {            
-            this.contato = await ContatoModel.findOne({email: this.body.email});
+            this.contato = await ContatoModel.findOne({usuarioId: this.body.usuarioId, email: this.body.email});
 
             if (this.contato) {            
                this.errors.push('Contato com este e-mail já cadastrado'); 
@@ -49,6 +51,7 @@ class Contato {
                 
         if (this.errors.length > 0) return;
         
+        console.log('Antes e gravar usuário: ', this.body);
         this.contato = await ContatoModel.create(this.body);
     }
 
@@ -64,12 +67,17 @@ class Contato {
             nome: this.body.nome,
             sobrenome: this.body.sobrenome,
             email: this.body.email,
-            telefone: this.body.telefone        
+            telefone: this.body.telefone,        
+            usuarioId: this.body.usuarioId
         }
     }
 
     async buscaPorId(id) {
         this.contato = await ContatoModel.findById(id);
+    }
+
+    async delete(id) {
+        this.contato = await ContatoModel.findByIdAndDelete({_id: id});
     }
 
     async indexEdit(id) {
@@ -78,14 +86,17 @@ class Contato {
         if (this.errors.length > 0) {
             return
         }
-        // encontra e atualiza! 
+        // encontra e atualiza!                 
         this.contato = await ContatoModel.findByIdAndUpdate(id, this.body, {
             new: true //isso é umparametro para dizer para após atualizar é para retonar os dados atualizados e não os antigos..
         });
     }
+
+    async carregarListaContatos() {
+        console.log('carregarListaContatos', this.body.usuarioId);  
+        return await ContatoModel.find({usuarioId: this.body.usuarioId}).sort({criadoEm: 1});
+        // sort: 1 : odem crescente, -1 descescente         
+    }
 }
-
-
-
 // importado no ContatoController
 module.exports = Contato;

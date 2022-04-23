@@ -17,6 +17,7 @@
                         <form action="/contato/edit/<%= contato._id %>" method="POST">
                     <% } %>        
                         
+                        <input type="hidden" name="usuarioId" value="<%= contato.usuarioId %>">
                         <input type="hidden" name="_csrf" value=<%=meuCsrfToken %>>
                         <div class="form-group">
                             <label>Nome</label>
@@ -44,6 +45,7 @@
                         <% } else { %>
                             <button type="submit" class="btn btn-primary my-3">Alterar</button>  
                             <a class="btn btn-primary my-3" href="/contato/index">Cadastrar novo Contato</a>
+                            <a class="btn btn-primary my-3" href="/">Lista de Contatos</a>
                         <% } %>        
                         
                     </form>
