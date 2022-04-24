@@ -12,9 +12,9 @@
 
                     <!--Se não tem o id, dá o post (cadastra), senão envia para a página de edição -->
                     <% if (!contato._id) { %>
-                        <form action="/contato/register" method="POST">
+                        <form class="form-cadastro-contatos" action="/contato/register" method="POST">
                     <% } else { %>
-                        <form action="/contato/edit/<%= contato._id %>" method="POST">
+                        <form class="form-cadastro-contatos" action="/contato/edit/<%= contato._id %>" method="POST">
                     <% } %>        
                         
                         <input type="hidden" name="usuarioId" value="<%= contato.usuarioId %>">
@@ -44,7 +44,7 @@
                             <button type="submit" class="btn btn-primary my-3">Incluir</button>
                         <% } else { %>
                             <button type="submit" class="btn btn-primary my-3">Alterar</button>  
-                            <a class="btn btn-primary my-3" href="/contato/index">Cadastrar novo Contato</a>
+                            <a class="btn btn-primary my-3" href="/contato">Cadastrar novo Contato</a>
                             <a class="btn btn-primary my-3" href="/">Lista de Contatos</a>
                         <% } %>        
                         

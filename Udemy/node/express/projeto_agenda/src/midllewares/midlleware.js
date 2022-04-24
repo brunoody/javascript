@@ -13,7 +13,7 @@ exports.meuMidlleware = (req, res, next) => {
 }
 
 exports.checkCsrfError = (err, req, res, next) => {
-    console.log('checkCsrfError - inicio');    
+    //console.log('checkCsrfError - inicio');    
     if (err) { // qualquer erro mostra a página 404     
        console.log(err);       
        res.render('404.ejs')
@@ -27,11 +27,11 @@ exports.csrfMiddleware = (req, res, next) => {
     next();
 }
 
-exports.verificaUsuarioLogado = (req, res, next) => {
+exports.verificaUsuarioLogado = (req, res, next) => {    
     // aqui verifico se a o usuário esta tentando acessar algo que não seja o login e não esteja logado
     // esse middleware é global, entao se eu não verificar se é /login ele vcai num loop
     if ((req.originalUrl.indexOf('/login') === -1) && (!req.session.user)){        
-        res.redirect('/login/index');
+        res.redirect('/login');
         return;
     }
     next();

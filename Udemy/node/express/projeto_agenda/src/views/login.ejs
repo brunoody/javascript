@@ -12,7 +12,7 @@
             <div class="col-lg">
               <h4>Faça seu cadastro</h4>
               <p>Se você ainda não tem conta, preencha o formulário abaixo:</p>
-              <form action="/login/register" method="POST"> <!-- aqui neste form vai a minha rota de cadastro! o Method padrão é GET então precisei colocar o POST-->
+              <form class="form-cadastro-login" action="/login/register" method="POST"> <!-- aqui neste form vai a minha rota de cadastro! o Method padrão é GET então precisei colocar o POST-->
                 <input type="hidden" name="_csrf" value=<%= meuCsrfToken %>>
                 <div class="form-group">
                   <label>Seu e-mail</label>
@@ -28,7 +28,7 @@
             <div class="col-lg">
               <h4>Faça seu login</h4>
               <p>Se você já tem uma conta, faça login abaixo:</p>
-              <form action="/login/login" method="POST"> <!-- aqui neste form vai a minha rota de cadastro! o Method padrão é GET então precisei colocar o POST-->
+              <form class="form-acesso-login" action="/login/login" method="POST"> <!-- aqui neste form vai a minha rota de cadastro! o Method padrão é GET então precisei colocar o POST-->
                 <input type="hidden" name="_csrf" value=<%= meuCsrfToken %>>
                 <div class="form-group">
                   <label>Seu e-mail</label>

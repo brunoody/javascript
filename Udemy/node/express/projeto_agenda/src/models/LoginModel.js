@@ -21,16 +21,19 @@ class Login {
     
     valida() {
         this.cleanUp();
-        // instalamos o pacote validator: npm i validator
-        // O e-mail precisa ser válido
-        if (!validator.isEmail(this.body.email)) {
-            this.errors.push('E-mail inválido');
-        };
+        // instalamos o pacote validator: npm i validator        
 
+        // ########## Estas validações foram transferidas para a validação e frontend pois não dependem de consulta na base então não preciamos deixar chega no nosso server!
+
+        // O e-mail precisa ser válido
+        //if (!validator.isEmail(this.body.email)) {
+        //    this.errors.push('E-mail inválido');
+        //};
+        
         // senha precisa ter entre 3 e 8 caracteres
-        if (this.body.password.length < 3 || this.body.password.length > 8) {
-            this.errors.push('A Senha deve ter entre 3 e 8 caracteres');
-        };                
+        //if (this.body.password.length < 3 || this.body.password.length > 8) {
+        //    this.errors.push('A Senha deve ter entre 3 e 8 caracteres');
+        //};                
     }
 
     // como vou lidar com base de dados tem que ser async!!

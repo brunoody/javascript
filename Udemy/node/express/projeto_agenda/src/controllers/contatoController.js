@@ -21,7 +21,7 @@ exports.register = async (req, res) => {
         //res.send('Contato register:', contato);
 
         if (!contato.contato) {
-            res.redirect(`/contato/index/`);                             
+            res.redirect(`/contato`);                             
         } else if (contato.contato._id) {
             res.redirect(`/contato/index/${contato.contato._id}`);                             
         }

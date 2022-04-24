@@ -22,13 +22,13 @@ exports.register = async (req, res) => {
             req.flash('errors', login.errors); // mostra os erros 
             // salva a sessão e retorna para a página de login para mostrar os erros
             req.session.save(function() {
-            return res.redirect('/login/index');            
+            return res.redirect('/login');            
             }) 
             return;
         }  
         req.flash('sucess', 'Seu usuário foi criado com sucesso');         
         req.session.save(function() {
-        return res.redirect('/login/index');
+        return res.redirect('/login');
         }) 
 
         //res.send(login.errors); 
@@ -40,7 +40,7 @@ exports.register = async (req, res) => {
 
 exports.logout = (req, res ) => {
     req.session.destroy();
-    res.redirect('/login/index');
+    res.redirect('/login');
 }
 
 exports.login = async (req, res) => {
@@ -51,7 +51,7 @@ exports.login = async (req, res) => {
 
         if (login.errors.length > 0) {
             req.flash('errors', login.errors); // mostra os erros                        
-            res.redirect('/login/index');                        
+            res.redirect('/login');                        
             return;
         }  
 
@@ -60,7 +60,9 @@ exports.login = async (req, res) => {
         req.session.user = login.user; // passa o ussuario para a session, assim que sabemos em outros pontos que o usuário esta conectado
 
         req.session.save(function() {
-            return res.redirect('/');            
+            console.log('Antes de ir para o raiz');
+            res.redirect('/');            
+            console.log('após passar pelo redirect do raiz');
         }); 
 
         //res.send(login.errors); 
