@@ -5,6 +5,10 @@ const router = new Router();
 
 // não preciso colocar /users pois já esta vindo da rota de user lá no App.js
 router.post('/', userController.store); // store ou create
+router.get('/', userController.index);
+router.get('/:id', userController.show);
+router.put('/:id', userController.update);
+router.delete('/:id', userController.delete);
 
 export default router;
 

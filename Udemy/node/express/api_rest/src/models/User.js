@@ -52,7 +52,9 @@ export default class User extends Model {
     });
     // esse addHook pelo que entendi executa um tipo de evento como no delphi, vamos usar para passar a senha já com hash para o campo da base:
     this.addHook('beforeSave', async (user) => {
-      user.password_hash = await bcryptjs.hash(user.password, 8);
+      if (user.password) {
+        user.password_hash = await bcryptjs.hash(user.password, 8);
+      }
     });
     return this;
   }
