@@ -2,16 +2,18 @@
 import Aluno from '../models/Aluno';
 
 class HomeController {
-  async index(rer, res) {
-    const novoAluno = await Aluno.create({
-      nome: 'Marcelo',
-      sobrenome: 'Toller',
-      email: 'marcelo@yahoo.com.br',
-      idade: 42,
-      peso: 80,
-      altura: 1.73,
-    });
+  async store(req, res) {
+    const novoAluno = await Aluno.create(req.body);
     res.json(novoAluno);
+  }
+
+  async index(req, res) {
+    try {
+      const alunos = await Aluno.findAll();
+      return res.json(alunos);
+    } catch {
+      return res.json(null);
+    }
   }
 }
 

@@ -1,11 +1,12 @@
 import { Router } from 'express';
 import userController from '../controllers/UserController';
+import loginRequired from '../middlewares/loginRequired';
 
 const router = new Router();
 
 // não preciso colocar /users pois já esta vindo da rota de user lá no App.js
 router.post('/', userController.store); // store ou create
-router.get('/', userController.index);
+router.get('/', loginRequired, userController.index);
 router.get('/:id', userController.show);
 router.put('/:id', userController.update);
 router.delete('/:id', userController.delete);

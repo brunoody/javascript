@@ -33,6 +33,11 @@ class UserController {
   // index
   async index(req, res) {
     try {
+      // agora sei quem é o usuário logado, este email e id vieram da descriptografia do token
+      // no middleware loginRequired
+      console.log('req. user id: ', req.userId);
+      console.log('req. user email: ', req.userEmail);
+
       const users = await User.findAll();
       return res.json(users);
     } catch {
