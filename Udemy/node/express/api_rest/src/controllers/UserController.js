@@ -12,7 +12,10 @@ class UserController {
         email: 'marcelo1@yahoo.com.br',
         password: '1234',
       }); */
-      return res.json(novoUser);
+
+      const { id, nome, email } = novoUser;
+
+      return res.json({ id, nome, email });
     } catch (e) {
       return res.status(400).json({
         // criada uma chave chamada erros aonde o valo são as mensagens de erro retornadas pela exceção
@@ -35,10 +38,8 @@ class UserController {
     try {
       // agora sei quem é o usuário logado, este email e id vieram da descriptografia do token
       // no middleware loginRequired
-      console.log('req. user id: ', req.userId);
-      console.log('req. user email: ', req.userEmail);
-
-      const users = await User.findAll();
+      // const users = await User.findAll(); // posso deixar asim e ele mostra todos os campos ou posso decidir que campos mostar:
+      const users = await User.findAll({ attributes: ['id', 'nome', 'email'] });
       return res.json(users);
     } catch {
       return res.json(null);
@@ -48,9 +49,10 @@ class UserController {
   // show
   async show(req, res) {
     try {
-      const { id } = req.params;
-      const user = await User.findByPk(id);
-      return res.json(user);
+      const user = await User.findByPk(req.params.id);
+
+      const { id, nome, email } = user; // para mostrar somente esses 3 campos no insomnia
+      return res.json({ id, nome, email });
     } catch {
       return res.json(null);
     }
@@ -59,14 +61,7 @@ class UserController {
   // update
   async update(req, res) {
     try {
-      const { id } = req.params;
-
-      if (!id) {
-        return res.status(400).json({
-          errors: ['ID não enviado'],
-        });
-      }
-      const user = await User.findByPk(id);
+      const user = await User.findByPk(req.userId); // esse userId vem do toquem, que foi extraíno no middleware loginRequired
 
       if (!user) {
         return res.status(400).json({
@@ -75,7 +70,8 @@ class UserController {
       }
 
       const novosDados = await user.update(req.body);
-      return res.json(novosDados);
+      const { id, nome, email } = novosDados; // para mostrar somente esses 3 campos no insomnia
+      return res.json({ id, nome, email });
     } catch (e) {
       return res.status(400).json({
         errors: e.errors.map((err) => err.message),
@@ -86,15 +82,7 @@ class UserController {
   // delete
   async delete(req, res) {
     try {
-      const { id } = req.params;
-
-      if (!id) {
-        return res.status(400).json({
-          errors: ['ID não enviado'],
-        });
-      }
-
-      const user = await User.findByPk(id);
+      const user = await User.findByPk(req.userId); // esse userId vem do toquem, que foi extraíno no middleware
 
       if (!user) {
         return res.status(400).json({
@@ -103,7 +91,7 @@ class UserController {
       }
 
       await user.destroy();
-      return res.json(user);
+      return res.json('Usuário excluído com sucesso');
     } catch (e) {
       return res.status(400).json({
         errors: e.errors.map((err) => err.message),
