@@ -39,6 +39,7 @@ class UserController {
       // agora sei quem é o usuário logado, este email e id vieram da descriptografia do token
       // no middleware loginRequired
       // const users = await User.findAll(); // posso deixar asim e ele mostra todos os campos ou posso decidir que campos mostar:
+      console.log('passou aqui');
       const users = await User.findAll({ attributes: ['id', 'nome', 'email'] });
       return res.json(users);
     } catch {
