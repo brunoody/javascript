@@ -1,7 +1,7 @@
 // o nome do arquivo é com letra maiúscula pois vamos trabalhar com classes e classes começam com letras maiusculas.
 import Aluno from '../models/Aluno';
 
-class HomeController {
+class AlunoController {
   async store(req, res) {
     const novoAluno = await Aluno.create(req.body);
     res.json(novoAluno);
@@ -17,4 +17,4 @@ class HomeController {
   }
 }
 
-export default new HomeController();
+export default new AlunoController();
