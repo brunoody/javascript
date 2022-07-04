@@ -12,7 +12,14 @@ class AlunoController {
   async update(req, res) {
     // console.log('aquiiiiiiiii', req.id);
     try {
-      const aluno = await Aluno.findByPk(req.params.id);
+      const { id } = req.params;
+      if (!id) {
+        return res.status(400).json({
+          errors: ['Faltando o ID'],
+        });
+      }
+
+      const aluno = await Aluno.findByPk(id);
 
       if (!aluno) {
         return res.status(400).json({
@@ -52,6 +59,55 @@ class AlunoController {
       return res.json(alunos);
     } catch {
       return res.json(null);
+    }
+  }
+
+  async show(req, res) {
+    try {
+      const { id } = req.params;
+      if (!id) {
+        return res.status(400).json({
+          errors: ['Faltando o ID'],
+        });
+      }
+
+      const aluno = await Aluno.findByPk(id);
+
+      if (!aluno) {
+        return res.status(400).json({
+          errors: ['Aluno não existe'],
+        });
+      }
+      return res.json(aluno);
+    } catch (e) {
+      return res.status(400).json({
+        errors: e.errors.map((err) => err.message),
+      });
+    }
+  }
+
+  async delete(req, res) {
+    try {
+      const { id } = req.params;
+      if (!id) {
+        return res.status(400).json({
+          errors: ['Faltando o ID'],
+        });
+      }
+
+      const aluno = await Aluno.findByPk(id);
+
+      if (!aluno) {
+        return res.status(400).json({
+          errors: ['Aluno não existe'],
+        });
+      }
+      await aluno.destroy();
+      return res.json({ statusExclusao: 'Sucesso' });
+    } catch (e) {
+      return res.status(400).json({
+        errors: e.errors.map((err) => err.message),
+      });
     }
   }
 }
