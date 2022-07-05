@@ -3,10 +3,17 @@ import { Op } from 'sequelize';
 import Aluno from '../models/Aluno';
 
 class AlunoController {
+  
   async store(req, res) {
-    // console.log(req.body);
-    const novoAluno = await Aluno.create(req.body);
-    res.json(novoAluno);
+    try {
+      // console.log(req.body);
+      const novoAluno = await Aluno.create(req.body);
+      res.json(novoAluno);
+    } catch (e) {
+      return res.status(400).json({
+        errors: e.errors.map((err) => err.message),
+      });    
+    }
   }
 
   async update(req, res) {
@@ -53,7 +60,7 @@ class AlunoController {
         // é um overload, ou se passa um ou outro parametro, mas pelo que vi num site dá para montar um sql literal
         alunos = await Aluno.findAll({ where: { idade: { [Op.between]: [idadeini, idadefim] } } });
       } else {
-        alunos = await Aluno.findAll({ attributes: ['nome', 'sobrenome', 'email', 'idade', 'peso', 'altura'] });
+        alunos = await Aluno.findAll({ attributes: ['id', 'nome', 'sobrenome', 'email', 'idade', 'peso', 'altura'] });        
       }
 
       return res.json(alunos);
