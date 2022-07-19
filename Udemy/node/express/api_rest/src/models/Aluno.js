@@ -30,11 +30,11 @@ export default class Aluno extends Model {
         unique: {
           msg: 'E-mail já cadastrado',
         },
-        validate: {                    
+        validate: {
           isEmail: {
-            msg: 'E-mail inválido',          
+            msg: 'E-mail inválido',
           },
-        }
+        },
       },
 
       idade: {
