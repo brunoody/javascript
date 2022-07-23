@@ -1,14 +1,16 @@
 module.exports = {
-  async up (queryInterface, Sequelize) {    
+  async up(queryInterface, Sequelize) {
     return queryInterface.changeColumn(
-      'alunos', 
+      'alunos',
       'email',
-      { 
+      {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
-      });    
+      },
+    );
   },
 
-  async down () {  }
+  // eslint-disable-next-line no-empty-function
+  async down() {},
 };
