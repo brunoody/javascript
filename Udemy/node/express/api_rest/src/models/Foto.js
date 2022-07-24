@@ -9,7 +9,7 @@ export default class Foto extends Model {
         defaultValue: '',
         validate: {
           notEmpty: {
-            msg: 'Campo não pode icar vazio',
+            msg: 'Campo não pode ficar vazio',
           },
         },
       },
@@ -18,7 +18,7 @@ export default class Foto extends Model {
         defaultValue: '',
         validate: {
           notEmpty: {
-            msg: 'Campo não pode icar vazio',
+            msg: 'Campo não pode ficar vazio',
           },
         },
       },
@@ -31,6 +31,7 @@ export default class Foto extends Model {
 
   // associação com a tabela de alunos:
   // poderíamos tb ir na tabela de alunos e criar o mesmo método porém com this.hasOne ou this.hasMany
+  // esse associate vi ser executado no database\index.js!
   static associate(models) {
     this.belongsTo(models.Aluno, { foreignKey: 'aluno_id' });
   }
