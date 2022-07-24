@@ -70,4 +70,10 @@ export default class Aluno extends Model {
     });
     return this;
   }
+
+  // colocamos aqui e tb no módulo de Fotos esta relação
+  static associate(models) {
+    this.hasMany(models.Foto, { foreignKey: 'aluno_id' });
+    // se eu usar o hasOne e o aluno tiver mais de uma foto, na consulta ele vai trazer várias vezes o mesmo aluno mas cada um com uma foto diferente, o hasMany é como se fosse um "group" nesse caso, um para vários
+  }
 }

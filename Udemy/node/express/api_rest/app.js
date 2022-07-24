@@ -5,6 +5,7 @@ dotenv.config();
 import './src/database';
 
 import express from 'express';
+import { resolve } from 'path';
 import homeRoutes from './src/routes/homeRoutes';
 import userRoutes from './src/routes/userRoutes';
 import tokenRoutes from './src/routes/tokenRoutes';
@@ -25,6 +26,7 @@ class App {
     // E a biblioteca querystring não suporta nested objects.
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
+    this.app.use(express.static(resolve(__dirname, 'uploads'))); // permite abrir os arquivos estaticos (fotos neste caso) no navegador através da url do caminho dele, ver campo url no model de Foto
   }
 
   routes() {

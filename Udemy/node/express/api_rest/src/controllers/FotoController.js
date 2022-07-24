@@ -22,11 +22,19 @@ class FotoController {
         });
       }
 
-      console.log(req.file, req.body);
-      const { originalname, filename } = req.file;
-      const { aluno_id } = req.body; // passado por parametro no insomnia!!
-      const foto = await Foto.create({ originalname, filename, aluno_id });
-      return res.json(foto);
+      try {
+        const { originalname, filename } = req.file;
+        const { aluno_id } = req.body; // passado por parametro no insomnia!!
+
+        if (!aluno_id) {
+          return res.status(400).json({ errors: ['ID do Aluno não informado'] });
+        }
+
+        const foto = await Foto.create({ originalname, filename, aluno_id });
+        return res.json(foto);
+      } catch (e) {
+        return res.status(400).json({ errors: ['Aluno não existe'] }); // aqui estmamos tratando com try catch, mas o certo seria consultar na base se esse aluno existe...
+      }
     });
   }
 }

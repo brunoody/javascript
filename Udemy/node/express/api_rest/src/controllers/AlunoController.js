@@ -1,18 +1,18 @@
 // o nome do arquivo é com letra maiúscula pois vamos trabalhar com classes e classes começam com letras maiusculas.
 import { Op } from 'sequelize';
 import Aluno from '../models/Aluno';
+import Foto from '../models/Foto';
 
 class AlunoController {
-  
   async store(req, res) {
     try {
       // console.log(req.body);
       const novoAluno = await Aluno.create(req.body);
-      res.json(novoAluno);
+      return res.json(novoAluno);
     } catch (e) {
       return res.status(400).json({
         errors: e.errors.map((err) => err.message),
-      });    
+      });
     }
   }
 
@@ -56,11 +56,19 @@ class AlunoController {
       let alunos;
 
       if (idadeini && idadefim) {
-        // pelo que entendi não tem como fazer um where e ao mesmo tempo dizer queis campos se quer retornar
+        // pelo que entendi não tem como fazer um where e ao mesmo tempo dizer quais campos se quer retornar
         // é um overload, ou se passa um ou outro parametro, mas pelo que vi num site dá para montar um sql literal
         alunos = await Aluno.findAll({ where: { idade: { [Op.between]: [idadeini, idadefim] } } });
       } else {
-        alunos = await Aluno.findAll({ attributes: ['id', 'nome', 'sobrenome', 'email', 'idade', 'peso', 'altura'] });        
+        alunos = await Aluno.findAll({
+          attributes: ['id', 'nome', 'sobrenome', 'email', 'idade', 'peso', 'altura'],
+          order: [['id', 'DESC'], [Foto, 'id', 'DESC']], // Ordenado pelo id do Aluno e depois pelos ids das fotos
+          include: {
+            model: Foto, // isto aqui funciona como um join, ytrazendo as fotos da tabela de fotos associadas ao aluno, desde que tenha a relação do método associate lá em baixo
+            attributes: ['id', 'filename', 'originalname', 'aluno_id', 'url'],
+          },
+
+        });
       }
 
       return res.json(alunos);
@@ -78,7 +86,15 @@ class AlunoController {
         });
       }
 
-      const aluno = await Aluno.findByPk(id);
+      const aluno = await Aluno.findByPk(id, {
+        attributes: ['id', 'nome', 'sobrenome', 'email', 'idade', 'peso', 'altura'],
+        order: [['id', 'DESC'], [Foto, 'id', 'DESC']], // Ordenado pelo id do Aluno e depois pelos ids das fotos
+        include: {
+          model: Foto, // isto aqui funciona como um join, ytrazendo as fotos da tabela de fotos associadas ao aluno, desde que tenha a relação do método associate lá em baixo
+          attributes: ['id', 'filename', 'originalname', 'aluno_id', 'url'],
+        },
+
+      });
 
       if (!aluno) {
         return res.status(400).json({

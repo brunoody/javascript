@@ -1,4 +1,5 @@
 import Sequelize, { Model } from 'sequelize';
+import appConfig from '../config/appConfig';
 
 // forma de criar classe e do proprio sequelize
 export default class Foto extends Model {
@@ -20,6 +21,14 @@ export default class Foto extends Model {
           notEmpty: {
             msg: 'Campo não pode ficar vazio',
           },
+        },
+      },
+      url: { // caminho da imagem no nosso servidor, na pasta upload, é um campo VIRTUAL, como se fosse o calculado no Delphi:
+        type: Sequelize.VIRTUAL,
+        get() {
+          // getDataValue pega o valor do campo passado, como se fisse o nosso fieldbyname!
+          return `${appConfig.url}/images/${this.getDataValue('filename')}`;
+          // configurar no app para poder abrir essa url no navegador
         },
       },
 
