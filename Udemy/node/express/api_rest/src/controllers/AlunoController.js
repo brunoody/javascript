@@ -61,11 +61,13 @@ class AlunoController {
         alunos = await Aluno.findAll({ where: { idade: { [Op.between]: [idadeini, idadefim] } } });
       } else {
         alunos = await Aluno.findAll({
-          attributes: ['id', 'nome', 'sobrenome', 'email', 'idade', 'peso', 'altura'],
-          order: [['id', 'DESC'], [Foto, 'id', 'DESC']], // Ordenado pelo id do Aluno e depois pelos ids das fotos
+          attributes: [['id', 'aluno_id'], 'nome', 'sobrenome', 'email', 'idade', 'peso', 'altura'],
+          // order: [['id', 'DESC'], [Foto, 'id', 'DESC']], // Ordenado pelo id do Aluno e depois pelos ids das fotos
+          order: [['id'], [Foto, 'id', 'DESC']], // Ordenado pelo id do Aluno e depois pelos ids das fotos
+
           include: {
-            model: Foto, // isto aqui funciona como um join, ytrazendo as fotos da tabela de fotos associadas ao aluno, desde que tenha a relação do método associate lá em baixo
-            attributes: ['id', 'filename', 'originalname', 'aluno_id', 'url'],
+            model: Foto, // isto aqui funciona como um join, trazendo as fotos da tabela de fotos associadas ao aluno, desde que tenha a relação do método associate lá em baixo
+            attributes: ['aluno_id', 'id', 'filename', 'originalname', 'url'],
           },
 
         });
@@ -87,11 +89,11 @@ class AlunoController {
       }
 
       const aluno = await Aluno.findByPk(id, {
-        attributes: ['id', 'nome', 'sobrenome', 'email', 'idade', 'peso', 'altura'],
+        attributes: [['id', 'aluno_id'], 'nome', 'sobrenome', 'email', 'idade', 'peso', 'altura'],
         order: [['id', 'DESC'], [Foto, 'id', 'DESC']], // Ordenado pelo id do Aluno e depois pelos ids das fotos
         include: {
           model: Foto, // isto aqui funciona como um join, ytrazendo as fotos da tabela de fotos associadas ao aluno, desde que tenha a relação do método associate lá em baixo
-          attributes: ['id', 'filename', 'originalname', 'aluno_id', 'url'],
+          attributes: ['aluno_id', 'id', 'filename', 'originalname', 'url'],
         },
 
       });
