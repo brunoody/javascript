@@ -8,7 +8,7 @@ class AlunoController {
     try {
       // console.log(req.body);
       const novoAluno = await Aluno.create(req.body);
-      return res.json(novoAluno);
+      return res.json({ aluno: novoAluno });
     } catch (e) {
       return res.status(400).json({
         errors: e.errors.map((err) => err.message),
@@ -36,7 +36,7 @@ class AlunoController {
 
       const novosDados = await aluno.update(req.body);
       // const { id, nome, email } = novosDados; // para mostrar somente esses 3 campos no insomnia
-      return res.json(novosDados);
+      return res.json({ aluno: novosDados });
     } catch (e) {
       return res.status(400).json({
         errors: e.errors.map((err) => err.message),
@@ -128,7 +128,8 @@ class AlunoController {
         });
       }
       await aluno.destroy();
-      return res.json({ statusExclusao: 'Sucesso' });
+      // return res.json({ statusExclusao: 'true' });
+      return res.json({ aluno });
     } catch (e) {
       return res.status(400).json({
         errors: e.errors.map((err) => err.message),
