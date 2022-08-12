@@ -22,8 +22,8 @@ module.exports = {
           model: 'alunos', // tabela a quel ele se referencia
           key: 'id', // campo referencia na tabela alunos
         },
-        onDelete: 'SET NULL', // TEM TB: RESTRICT E NO ACTION
-        onUpdade: 'CASCADE',
+        onDelete: 'CASCADE', // TEM TB: RESTRICT E NO ACTION
+        onUpdate: 'CASCADE',
       },
       created_at: {
         type: Sequelize.DATE,

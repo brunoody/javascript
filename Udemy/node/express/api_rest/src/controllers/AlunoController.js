@@ -3,6 +3,8 @@ import { Op } from 'sequelize';
 import Aluno from '../models/Aluno';
 import Foto from '../models/Foto';
 
+const fs = require('fs');
+
 class AlunoController {
   async store(req, res) {
     try {
@@ -92,7 +94,7 @@ class AlunoController {
         attributes: [['id', 'aluno_id'], 'nome', 'sobrenome', 'email', 'idade', 'peso', 'altura'],
         order: [['id', 'DESC'], [Foto, 'id', 'DESC']], // Ordenado pelo id do Aluno e depois pelos ids das fotos
         include: {
-          model: Foto, // isto aqui funciona como um join, ytrazendo as fotos da tabela de fotos associadas ao aluno, desde que tenha a relação do método associate lá em baixo
+          model: Foto, // isto aqui funciona como um join, trazendo as fotos da tabela de fotos associadas ao aluno, desde que tenha a relação do método associate lá em baixo
           attributes: ['aluno_id', 'id', 'filename', 'originalname', 'url'],
         },
 
@@ -120,7 +122,12 @@ class AlunoController {
         });
       }
 
-      const aluno = await Aluno.findByPk(id);
+      const aluno = await Aluno.findByPk(id, {
+        include: {
+          model: Foto,
+          attributes: ['filename'],
+        },
+      });
 
       if (!aluno) {
         return res.status(400).json({
@@ -128,6 +135,16 @@ class AlunoController {
         });
       }
       await aluno.destroy();
+
+      const { Fotos } = aluno;
+
+      Fotos.forEach((element) => {
+        const { filename } = element;
+        fs.unlink(`uploads/images/${filename}`, (err) => {
+          if (err) throw err;
+        });
+      });
+
       // return res.json({ statusExclusao: 'true' });
       return res.json({ aluno });
     } catch (e) {

@@ -3,6 +3,8 @@ import multer from 'multer';
 import multerConfig from '../config/multerConfig';
 import Foto from '../models/Foto';
 
+const fs = require('fs');
+
 // este ".single('foto')" habilita o recurso de req.file, somente par envio de 1 unico arquivo, tb dá p mandar vários..
 // o 'foto' é um nome qualquer dado por nós, esse nome deve ser passado na requisição, no caso do insominia vai no campo "name" da opção Multipart form (aonde o "value" é do tipo file e escolhemos um arquivo)
 const upload = multer(multerConfig).single('foto');
@@ -36,6 +38,39 @@ class FotoController {
         return res.status(400).json({ errors: ['Aluno não existe'] }); // aqui estmamos tratando com try catch, mas o certo seria consultar na base se esse aluno existe...
       }
     });
+  }
+
+  async delete(req, res) {
+    try {
+      const { id } = req.params;
+      if (!id) {
+        return res.status(400).json({
+          errors: ['Faltando o ID da foto'],
+        });
+      }
+
+      const foto = await Foto.findByPk(id);
+
+      if (!foto) {
+        return res.status(400).json({
+          errors: ['foto não existe'],
+        });
+      }
+      await foto.destroy();
+
+      // delete a foto fisicamente, descobri e fiz sozinho
+      const { filename } = foto;
+      fs.unlink(`uploads/images/${filename}`, (err) => {
+        if (err) throw err;
+      });
+
+      // return res.json({ statusExclusao: 'true' });
+      return res.json({ foto });
+    } catch (e) {
+      return res.status(400).json({
+        errors: e.errors.map((err) => err.message),
+      });
+    }
   }
 }
 
