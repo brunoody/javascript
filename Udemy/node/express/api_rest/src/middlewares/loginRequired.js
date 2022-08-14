@@ -6,7 +6,7 @@ export default async (req, res, next) => {
 
   if (!authorization) {
     return res.status(401).json({
-      errors: ['requisição não autorizada'],
+      errors: ['Requisição não autorizada'],
     });
   }
 
@@ -14,6 +14,7 @@ export default async (req, res, next) => {
 
   try {
     const dados = jwt.verify(token, process.env.TOKEN_SECRET);
+
     const { id, email } = dados;
 
     // verificamos na Base se esse id e e-mail ainda correspondem a um usuário válido/existente:
@@ -30,8 +31,18 @@ export default async (req, res, next) => {
       });
     }
 
+    const { nome } = user;
+    const { exp } = dados;
+    const data = new Date(exp * 1000);
+
+    req.tokenExpira = data.toLocaleDateString('pt-br', { // isso aqui é um objeto passado por parametro para configurar a hora, tm o de data tb
+      day: '2-digit',
+      month: '2-digit',
+      year: '2-digit',
+    });
     req.userId = id;
     req.userEmail = email;
+    req.userName = nome;
     return next();
   } catch (e) {
     return res.status(401).json({

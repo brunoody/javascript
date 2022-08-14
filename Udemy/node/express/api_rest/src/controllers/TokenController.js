@@ -41,6 +41,16 @@ class TokenController {
 
     return res.json({ token });
   }
+
+  // aqui só retorno o body da req pois isso é validado e alimentado no loginRequired e aqui só tenho o show para colocar em uma rota e me retornar os dados do usuário pelo token
+  show(req, res) {
+    const {
+      userEmail, userName, userId, tokenExpira,
+    } = req;
+    return res.json({
+      userEmail, userName, userId, tokenExpira,
+    });
+  }
 }
 
 export default new TokenController();
