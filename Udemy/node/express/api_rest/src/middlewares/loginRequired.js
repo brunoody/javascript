@@ -32,14 +32,20 @@ export default async (req, res, next) => {
     }
 
     const { nome } = user;
-    const { exp } = dados;
+    const { exp } = dados; // atributo de expiração do toquen
+
     const data = new Date(exp * 1000);
 
-    req.tokenExpira = data.toLocaleDateString('pt-br', { // isso aqui é um objeto passado por parametro para configurar a hora, tm o de data tb
-      day: '2-digit',
-      month: '2-digit',
-      year: '2-digit',
-    });
+    if (data) {
+      req.tokenExpira = data.toLocaleDateString('pt-br', { // isso aqui é um objeto passado por parametro para configurar a hora, tm o de data tb
+        day: '2-digit',
+        month: '2-digit',
+        year: '2-digit',
+      });
+    } else {
+      req.tokenExpira = '';
+    }
+
     req.userId = id;
     req.userEmail = email;
     req.userName = nome;
