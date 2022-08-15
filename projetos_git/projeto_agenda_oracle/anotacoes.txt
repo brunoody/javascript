@@ -1,0 +1,2 @@
+Para fazer um hash da senha que vai ser gravada na base de dados, vamos instalar o pacote:
+npm i bcryptjs

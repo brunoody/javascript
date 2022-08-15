@@ -1,0 +1,15 @@
+<% controle de fluxo (for, if..) %>
+<%= imprimie escapando tags html ou codigo JS ou qualquer outra coisa que execute %>
+<%- imprime sem escapar as opções acima %>
+<%# comentário %>
+<%- include(camimnho/arquivo.ejs);  %>
+
+exemplo:
+
+<% if(typeof numeros !== 'undefined') { %>
+  <%= numeros %>
+<% } else { %>
+  <%= exibe outra coisa%>
+<% } %>
+
+
