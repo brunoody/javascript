@@ -5,7 +5,7 @@ var _User = require('../models/User'); var _User2 = _interopRequireDefault(_User
 class TokenController {
   async store(req, res) {
     // pega o e-mail e senha vindo do json enviado
-    const { email = '', password = '' } = req.body;
+    const { email = '', password = '', tokenExpira = true } = req.body;
 
     console.log(req.body);
     // valida se enviou email e senha:
@@ -36,7 +36,7 @@ class TokenController {
     const token = _jsonwebtoken2.default.sign(
       { id, email }, // payload
       process.env.TOKEN_SECRET, // espécie de chave de criptografia que podemos colocar qualquer coisa, ver aquivo .env
-      { expiresIn: process.env.TOKEN_EXPIRATION }, // prazo de expiração do token, ver aquivo .env
+      tokenExpira && { expiresIn: process.env.TOKEN_EXPIRATION }, // prazo de expiração do token, ver aquivo .env
     );
 
     return res.json({ token });
